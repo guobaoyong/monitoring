@@ -18,7 +18,7 @@ public class SysUserOnline extends BaseEntity
     /** 用户会话id */
     private String sessionId;
 
-    /** 部门名称 */
+    /** 院系名称 */
     private String deptName;
 
     /** 登录名称 */

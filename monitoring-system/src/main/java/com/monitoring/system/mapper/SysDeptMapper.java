@@ -5,56 +5,56 @@ import org.apache.ibatis.annotations.Param;
 import com.monitoring.common.core.domain.entity.SysDept;
 
 /**
- * 部门管理 数据层
+ * 院系管理 数据层
  * 
  * @author ruoyi
  */
 public interface SysDeptMapper
 {
     /**
-     * 查询下级部门数量
+     * 查询下级院系数量
      * 
-     * @param dept 部门信息
+     * @param dept 院系信息
      * @return 结果
      */
     public int selectDeptCount(SysDept dept);
 
     /**
-     * 查询部门是否存在用户
+     * 查询院系是否存在用户
      * 
-     * @param deptId 部门ID
+     * @param deptId 院系ID
      * @return 结果
      */
     public int checkDeptExistUser(Long deptId);
 
     /**
-     * 查询部门管理数据
+     * 查询院系管理数据
      * 
-     * @param dept 部门信息
-     * @return 部门信息集合
+     * @param dept 院系信息
+     * @return 院系信息集合
      */
     public List<SysDept> selectDeptList(SysDept dept);
 
     /**
-     * 删除部门管理信息
+     * 删除院系管理信息
      * 
-     * @param deptId 部门ID
+     * @param deptId 院系ID
      * @return 结果
      */
     public int deleteDeptById(Long deptId);
 
     /**
-     * 新增部门信息
+     * 新增院系信息
      * 
-     * @param dept 部门信息
+     * @param dept 院系信息
      * @return 结果
      */
     public int insertDept(SysDept dept);
 
     /**
-     * 修改部门信息
+     * 修改院系信息
      * 
-     * @param dept 部门信息
+     * @param dept 院系信息
      * @return 结果
      */
     public int updateDept(SysDept dept);
@@ -68,50 +68,50 @@ public interface SysDeptMapper
     public int updateDeptChildren(@Param("depts") List<SysDept> depts);
 
     /**
-     * 根据部门ID查询信息
+     * 根据院系ID查询信息
      * 
-     * @param deptId 部门ID
-     * @return 部门信息
+     * @param deptId 院系ID
+     * @return 院系信息
      */
     public SysDept selectDeptById(Long deptId);
 
     /**
-     * 校验部门名称是否唯一
+     * 校验院系名称是否唯一
      * 
-     * @param deptName 部门名称
-     * @param parentId 父部门ID
+     * @param deptName 院系名称
+     * @param parentId 父院系ID
      * @return 结果
      */
     public SysDept checkDeptNameUnique(@Param("deptName") String deptName, @Param("parentId") Long parentId);
 
     /**
-     * 根据角色ID查询部门
+     * 根据角色ID查询院系
      *
      * @param roleId 角色ID
-     * @return 部门列表
+     * @return 院系列表
      */
     public List<String> selectRoleDeptTree(Long roleId);
 
     /**
-     * 修改所在部门正常状态
+     * 修改所在院系正常状态
      * 
-     * @param deptIds 部门ID组
+     * @param deptIds 院系ID组
      */
     public void updateDeptStatusNormal(Long[] deptIds);
 
     /**
-     * 根据ID查询所有子部门
+     * 根据ID查询所有子院系
      * 
-     * @param deptId 部门ID
-     * @return 部门列表
+     * @param deptId 院系ID
+     * @return 院系列表
      */
     public List<SysDept> selectChildrenDeptById(Long deptId);
 
     /**
-     * 根据ID查询所有子部门（正常状态）
+     * 根据ID查询所有子院系（正常状态）
      * 
-     * @param deptId 部门ID
-     * @return 子部门数
+     * @param deptId 院系ID
+     * @return 子院系数
      */
     public int selectNormalChildrenDeptById(Long deptId);
 }

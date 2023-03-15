@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-	<th:block th:include="include :: header('部门列表')" />
+	<th:block th:include="include :: header('院系列表')" />
 </head>
 <body class="gray-bg">
 	<div class="container-div">
@@ -11,10 +11,10 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								部门名称：<input type="text" name="deptName"/>
+								院系名称：<input type="text" name="deptName"/>
 							</li>
 							<li>
-								部门状态：<select name="status" th:with="type=${@dict.getType('sys_normal_disable')}">
+								院系状态：<select name="status" th:with="type=${@dict.getType('sys_normal_disable')}">
 									<option value="">所有</option>
 									<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
 								</select>
@@ -61,14 +61,14 @@
 		        createUrl: prefix + "/add/{id}",
 		        updateUrl: prefix + "/edit/{id}",
 		        removeUrl: prefix + "/remove/{id}",
-		        modalName: "部门",
+		        modalName: "院系",
 		        columns: [{
                     field: 'selectItem', 
                     radio: true
                  },
                  {
 		            field: 'deptName',
-		            title: '部门名称',
+		            title: '院系名称',
 		            align: "left"
 		        },
 		        {

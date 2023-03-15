@@ -6,33 +6,33 @@ import com.monitoring.common.core.domain.entity.SysDept;
 import com.monitoring.common.core.domain.entity.SysRole;
 
 /**
- * 部门管理 服务层
+ * 院系管理 服务层
  * 
  * @author ruoyi
  */
 public interface ISysDeptService
 {
     /**
-     * 查询部门管理数据
+     * 查询院系管理数据
      * 
-     * @param dept 部门信息
-     * @return 部门信息集合
+     * @param dept 院系信息
+     * @return 院系信息集合
      */
     public List<SysDept> selectDeptList(SysDept dept);
 
     /**
-     * 查询部门管理树
+     * 查询院系管理树
      * 
-     * @param dept 部门信息
-     * @return 所有部门信息
+     * @param dept 院系信息
+     * @return 所有院系信息
      */
     public List<Ztree> selectDeptTree(SysDept dept);
 
     /**
-     * 查询部门管理树（排除下级）
+     * 查询院系管理树（排除下级）
      * 
-     * @param dept 部门信息
-     * @return 所有部门信息
+     * @param dept 院系信息
+     * @return 所有院系信息
      */
     public List<Ztree> selectDeptTreeExcludeChild(SysDept dept);
 
@@ -45,73 +45,73 @@ public interface ISysDeptService
     public List<Ztree> roleDeptTreeData(SysRole role);
 
     /**
-     * 根据父部门ID查询下级部门数量
+     * 根据父院系ID查询下级院系数量
      * 
-     * @param parentId 父部门ID
+     * @param parentId 父院系ID
      * @return 结果
      */
     public int selectDeptCount(Long parentId);
 
     /**
-     * 查询部门是否存在用户
+     * 查询院系是否存在用户
      * 
-     * @param deptId 部门ID
+     * @param deptId 院系ID
      * @return 结果 true 存在 false 不存在
      */
     public boolean checkDeptExistUser(Long deptId);
 
     /**
-     * 删除部门管理信息
+     * 删除院系管理信息
      * 
-     * @param deptId 部门ID
+     * @param deptId 院系ID
      * @return 结果
      */
     public int deleteDeptById(Long deptId);
 
     /**
-     * 新增保存部门信息
+     * 新增保存院系信息
      * 
-     * @param dept 部门信息
+     * @param dept 院系信息
      * @return 结果
      */
     public int insertDept(SysDept dept);
 
     /**
-     * 修改保存部门信息
+     * 修改保存院系信息
      * 
-     * @param dept 部门信息
+     * @param dept 院系信息
      * @return 结果
      */
     public int updateDept(SysDept dept);
 
     /**
-     * 根据部门ID查询信息
+     * 根据院系ID查询信息
      * 
-     * @param deptId 部门ID
-     * @return 部门信息
+     * @param deptId 院系ID
+     * @return 院系信息
      */
     public SysDept selectDeptById(Long deptId);
 
     /**
-     * 根据ID查询所有子部门（正常状态）
+     * 根据ID查询所有子院系（正常状态）
      * 
-     * @param deptId 部门ID
-     * @return 子部门数
+     * @param deptId 院系ID
+     * @return 子院系数
      */
     public int selectNormalChildrenDeptById(Long deptId);
 
     /**
-     * 校验部门名称是否唯一
+     * 校验院系名称是否唯一
      * 
-     * @param dept 部门信息
+     * @param dept 院系信息
      * @return 结果
      */
     public boolean checkDeptNameUnique(SysDept dept);
 
     /**
-     * 校验部门是否有数据权限
+     * 校验院系是否有数据权限
      * 
-     * @param deptId 部门id
+     * @param deptId 院系id
      */
     public void checkDeptDataScope(Long deptId);
 }

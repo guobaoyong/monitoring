@@ -309,7 +309,7 @@ public class SysRoleController extends BaseController
     }
 
     /**
-     * 加载角色部门（数据权限）列表树
+     * 加载角色院系（数据权限）列表树
      */
     @RequiresPermissions("system:role:edit")
     @GetMapping("/deptTreeData")

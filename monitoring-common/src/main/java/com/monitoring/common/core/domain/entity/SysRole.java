@@ -33,8 +33,8 @@ public class SysRole extends BaseEntity
     @Excel(name = "角色排序", cellType = ColumnType.NUMERIC)
     private String roleSort;
 
-    /** 数据范围（1：所有数据权限；2：自定义数据权限；3：本部门数据权限；4：本部门及以下数据权限；5：仅本人数据权限） */
-    @Excel(name = "数据范围", readConverterExp = "1=所有数据权限,2=自定义数据权限,3=本部门数据权限,4=本部门及以下数据权限,5=仅本人数据权限")
+    /** 数据范围（1：所有数据权限；2：自定义数据权限；3：本院系数据权限；4：本院系及以下数据权限；5：仅本人数据权限） */
+    @Excel(name = "数据范围", readConverterExp = "1=所有数据权限,2=自定义数据权限,3=本院系数据权限,4=本院系及以下数据权限,5=仅本人数据权限")
     private String dataScope;
 
     /** 角色状态（0正常 1停用） */
@@ -50,7 +50,7 @@ public class SysRole extends BaseEntity
     /** 菜单组 */
     private Long[] menuIds;
 
-    /** 部门组（数据权限） */
+    /** 院系组（数据权限） */
     private Long[] deptIds;
 
     /** 角色菜单权限 */

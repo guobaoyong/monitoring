@@ -26,11 +26,11 @@ public class SysUser extends BaseEntity
     @Excel(name = "用户序号", cellType = ColumnType.NUMERIC, prompt = "用户编号")
     private Long userId;
 
-    /** 部门ID */
-    @Excel(name = "部门编号", type = Type.IMPORT)
+    /** 院系ID */
+    @Excel(name = "院系编号", type = Type.IMPORT)
     private Long deptId;
 
-    /** 部门父ID */
+    /** 院系父ID */
     private Long parentId;
 
     /** 角色ID */
@@ -86,10 +86,10 @@ public class SysUser extends BaseEntity
     /** 密码最后更新时间 */
     private Date pwdUpdateDate;
 
-    /** 部门对象 */
+    /** 院系对象 */
     @Excels({
-        @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
-        @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
+        @Excel(name = "院系名称", targetAttr = "deptName", type = Type.EXPORT),
+        @Excel(name = "院系负责人", targetAttr = "leader", type = Type.EXPORT)
     })
     private SysDept dept;
 

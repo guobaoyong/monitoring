@@ -306,7 +306,7 @@ public class SysUserController extends BaseController
     }
 
     /**
-     * 加载部门列表树
+     * 加载院系列表树
      */
     @RequiresPermissions("system:user:list")
     @GetMapping("/deptTreeData")
@@ -318,9 +318,9 @@ public class SysUserController extends BaseController
     }
 
     /**
-     * 选择部门树
+     * 选择院系树
      * 
-     * @param deptId 部门ID
+     * @param deptId 院系ID
      */
     @RequiresPermissions("system:user:list")
     @GetMapping("/selectDeptTree/{deptId}")

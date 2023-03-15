@@ -20,7 +20,7 @@ public class OnlineSession extends SimpleSession
     /** 用户名称 */
     private String loginName;
 
-    /** 部门名称 */
+    /** 院系名称 */
     private String deptName;
 	
 	/** 用户头像 */
