@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('拓扑图')"/>
+    <th:block th:include="include :: echarts-js"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row" th:each="sysDataRecord:${sysDataRecords}">
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>网络ID为<span th:text="${sysDataRecord.dataId}"></span>的初始位置分布</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" th:id="'scatter'+ ${sysDataRecord.dataId}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>网络ID为<span th:text="${sysDataRecord.dataId}"></span>的网络拓扑结构</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" th:id="'graph'+ ${sysDataRecord.dataId}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: echarts-js"/>
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script th:inline="javascript">
+    var prefix = ctx + "system/co";
+
+    var sysDataRecordsIds = [[${sysDataRecordsIds}]];
+    var sysDataRecordsDims = [[${sysDataRecordsDims}]];
+
+    $(function () {
+        for (let i = 0; i < sysDataRecordsIds.length; i++) {
+            // 初始位置分布
+            var scatterChart = echarts.init(document.getElementById("scatter"+ sysDataRecordsIds[i]));
+            var initLocationData = [];
+            $.ajax({
+                url: prefix + "/initLocationData",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    dataId: sysDataRecordsIds[i]
+                },
+                async: false,
+                success: function (result) {
+                    $.each(result.data, function (n, value) {
+                        initLocationData.push(value);
+                    });
+                }
+            });
+            if (sysDataRecordsDims[i] == '0') {
+                var scatteroption = {
+                    xAxis: {},
+                    yAxis: {},
+                    axisTick: {
+                        show: true,
+                        alignWithLabel: true
+                    },
+                    series: [
+                        {
+                            symbolSize: 50,
+                            data: initLocationData,
+                            type: 'scatter'
+                        }
+                    ]
+                };
+                scatterChart.setOption(scatteroption);
+                $(window).resize(scatterChart.resize);
+            } else if (sysDataRecordsDims[i] == '1') {
+                scatterChart.setOption(
+                    (option = {
+                        visualMap: {
+                            show: false,
+                            inRange: {
+                                symbolSize: [10, 200],
+                                color: [
+                                    '#313695',
+                                    '#4575b4',
+                                    '#74add1',
+                                    '#abd9e9',
+                                    '#e0f3f8',
+                                    '#ffffbf',
+                                    '#fee090',
+                                    '#fdae61',
+                                    '#f46d43',
+                                    '#d73027',
+                                    '#a50026'
+                                ],
+                            }
+                        },
+                        xAxis3D: {
+                            type: 'value'
+                        },
+                        yAxis3D: {
+                            type: 'value'
+                        },
+                        zAxis3D: {
+                            type: 'value'
+                        },
+                        grid3D: {
+                            axisLine: {
+                                lineStyle: { color: '#000000' }
+                            },
+                            axisPointer: {
+                                lineStyle: { color: '#000000' }
+                            },
+                            viewControl: {
+                                // autoRotate: true
+                            }
+                        },
+                        series: [
+                            {
+                                type: 'scatter3D',
+                                data: initLocationData
+                            }
+                        ]
+                    })
+                );
+                $(window).resize(scatterChart.resize);
+            }
+
+            // 网络拓扑
+            var graphChart = echarts.init(document.getElementById("graph"+ sysDataRecordsIds[i]));
+            var graphData = [];
+            var edgeData = [];
+            $.ajax({
+                url: prefix + "/graphData",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    dataId: sysDataRecordsIds[i]
+                },
+                async: false,
+                success: function (result) {
+                    $.each(result.data, function (n, value) {
+                        graphData.push(value);
+                    });
+                }
+            });
+            $.ajax({
+                url: prefix + "/edgeData",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    dataId: sysDataRecordsIds[i]
+                },
+                async: false,
+                success: function (result) {
+                    $.each(result.data, function (n, value) {
+                        edgeData.push(value);
+                    });
+                }
+            });
+            graphChart.setOption(
+                (option = {
+                    tooltip: {},
+                    animationDurationUpdate: 1500,
+                    animationEasingUpdate: 'quinticInOut',
+                    series: [
+                        {
+                            type: 'graph',
+                            layout: 'none',
+                            symbolSize: 20,
+                            roam: true,
+                            label: {
+                                show: true
+                            },
+                            edgeSymbol: ['circle', 'arrow'],
+                            edgeSymbolSize: [4, 10],
+                            edgeLabel: {
+                                fontSize: 20
+                            },
+                            data: graphData,
+                            links: edgeData,
+                            lineStyle: {
+                                opacity: 0.9,
+                                width: 2,
+                                curveness: 0
+                            }
+                        }
+                    ]
+                })
+            );
+            $(window).resize(graphChart.resize);
+        }
+    });
+</script>
+</body>
+</html>

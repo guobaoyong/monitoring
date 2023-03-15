@@ -3,6 +3,8 @@ package com.monitoring.web.controller.system;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import com.monitoring.system.domain.SysCo;
+import com.monitoring.system.service.ISysCoService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,8 +39,8 @@ public class SysNodeInfoController extends BaseController {
     @Autowired
     private ISysNodeInfoService sysNodeInfoService;
 
-    /*@Autowired
-    private ISysCoService sysCoService;*/
+    @Autowired
+    private ISysCoService sysCoService;
 
     @RequiresPermissions("system:info:view")
     @GetMapping()
@@ -145,7 +147,7 @@ public class SysNodeInfoController extends BaseController {
     /**
      * 提交覆盖优化任务
      */
-    /*@RequiresPermissions("system:info:task")
+    @RequiresPermissions("system:info:task")
     @Log(title = "实验数据管理", businessType = BusinessType.UPDATE)
     @PostMapping("/task")
     @ResponseBody
@@ -160,6 +162,6 @@ public class SysNodeInfoController extends BaseController {
         sysCo.setDataId(sysNodeInfo.getDataId());
         sysCo.setEnergy(energys.get());
         return toAjax(sysCoService.insertSysCo(sysCo));
-    }*/
+    }
 
 }
