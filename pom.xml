@@ -3,16 +3,16 @@
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ruoyi</groupId>
-    <artifactId>ruoyi</artifactId>
+    <groupId>com.monitoring</groupId>
+    <artifactId>monitoring</artifactId>
     <version>4.7.6</version>
 
-    <name>ruoyi</name>
-    <url>http://www.ruoyi.vip</url>
-    <description>若依管理系统</description>
+    <name>monitoring</name>
+    <url></url>
+    <description>基于GWO和LSTM的智慧监控预警平台</description>
     
     <properties>
-        <ruoyi.version>4.7.6</ruoyi.version>
+        <monitoring.version>4.7.6</monitoring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -150,49 +150,49 @@
 
             <!-- 定时任务-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-quartz</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>com.monitoring</groupId>
+                <artifactId>monitoring-quartz</artifactId>
+                <version>${monitoring.version}</version>
             </dependency>
 
             <!-- 代码生成-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-generator</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>com.monitoring</groupId>
+                <artifactId>monitoring-generator</artifactId>
+                <version>${monitoring.version}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-framework</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>com.monitoring</groupId>
+                <artifactId>monitoring-framework</artifactId>
+                <version>${monitoring.version}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-system</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>com.monitoring</groupId>
+                <artifactId>monitoring-system</artifactId>
+                <version>${monitoring.version}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>com.monitoring</groupId>
+                <artifactId>monitoring-common</artifactId>
+                <version>${monitoring.version}</version>
             </dependency>
 
         </dependencies>
     </dependencyManagement>
 
     <modules>
-        <module>ruoyi-admin</module>
-        <module>ruoyi-framework</module>
-        <module>ruoyi-system</module>
-        <module>ruoyi-quartz</module>
-        <module>ruoyi-generator</module>
-        <module>ruoyi-common</module>
+        <module>monitoring-admin</module>
+        <module>monitoring-framework</module>
+        <module>monitoring-system</module>
+        <module>monitoring-quartz</module>
+        <module>monitoring-generator</module>
+        <module>monitoring-common</module>
     </modules>
     <packaging>pom</packaging>
 
