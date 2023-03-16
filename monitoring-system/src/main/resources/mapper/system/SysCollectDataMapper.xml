@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.monitoring.system.mapper.SysCollectDataMapper">
+    
+    <resultMap type="SysCollectData" id="SysCollectDataResult">
+        <result property="collectId"    column="collect_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="sensorId"    column="sensor_id"    />
+        <result property="temperature"    column="temperature"    />
+        <result property="humidity"    column="humidity"    />
+        <result property="collectTime"    column="collect_time"    />
+    </resultMap>
+
+    <sql id="selectSysCollectDataVo">
+        select collect_id, create_by, create_time, update_by, update_time, remark, sensor_id, temperature, humidity, collect_time from sys_collect_data
+    </sql>
+
+    <select id="selectSysCollectDataList" parameterType="SysCollectData" resultMap="SysCollectDataResult">
+        <include refid="selectSysCollectDataVo"/>
+        <where>  
+            <if test="sensorId != null "> and sensor_id = #{sensorId}</if>
+            <if test="temperature != null  and temperature != ''"> and temperature = #{temperature}</if>
+            <if test="humidity != null  and humidity != ''"> and humidity = #{humidity}</if>
+            <if test="collectTime != null "> and collect_time = #{collectTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysCollectDataByCollectId" parameterType="Long" resultMap="SysCollectDataResult">
+        <include refid="selectSysCollectDataVo"/>
+        where collect_id = #{collectId}
+    </select>
+        
+    <insert id="insertSysCollectData" parameterType="SysCollectData" useGeneratedKeys="true" keyProperty="collectId">
+        insert into sys_collect_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="sensorId != null">sensor_id,</if>
+            <if test="temperature != null">temperature,</if>
+            <if test="humidity != null">humidity,</if>
+            <if test="collectTime != null">collect_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="sensorId != null">#{sensorId},</if>
+            <if test="temperature != null">#{temperature},</if>
+            <if test="humidity != null">#{humidity},</if>
+            <if test="collectTime != null">#{collectTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysCollectData" parameterType="SysCollectData">
+        update sys_collect_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="sensorId != null">sensor_id = #{sensorId},</if>
+            <if test="temperature != null">temperature = #{temperature},</if>
+            <if test="humidity != null">humidity = #{humidity},</if>
+            <if test="collectTime != null">collect_time = #{collectTime},</if>
+        </trim>
+        where collect_id = #{collectId}
+    </update>
+
+    <delete id="deleteSysCollectDataByCollectId" parameterType="Long">
+        delete from sys_collect_data where collect_id = #{collectId}
+    </delete>
+
+    <delete id="deleteSysCollectDataByCollectIds" parameterType="String">
+        delete from sys_collect_data where collect_id in 
+        <foreach item="collectId" collection="array" open="(" separator="," close=")">
+            #{collectId}
+        </foreach>
+    </delete>
+
+</mapper>
