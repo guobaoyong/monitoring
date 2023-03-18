@@ -29,6 +29,7 @@
         <commons.io.version>2.11.0</commons.io.version>
         <poi.version>4.1.2</poi.version>
         <velocity.version>2.3</velocity.version>
+        <hutool.version>5.8.15</hutool.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -181,6 +182,12 @@
                 <groupId>com.monitoring</groupId>
                 <artifactId>monitoring-common</artifactId>
                 <version>${monitoring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
 
         </dependencies>

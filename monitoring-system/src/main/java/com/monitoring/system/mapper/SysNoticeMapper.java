@@ -4,46 +4,46 @@ import java.util.List;
 import com.monitoring.system.domain.SysNotice;
 
 /**
- * 公告 数据层
+ *  数据层
  * 
  * @author ruoyi
  */
 public interface SysNoticeMapper
 {
     /**
-     * 查询公告信息
+     * 查询信息
      * 
-     * @param noticeId 公告ID
-     * @return 公告信息
+     * @param noticeId ID
+     * @return 信息
      */
     public SysNotice selectNoticeById(Long noticeId);
 
     /**
-     * 查询公告列表
+     * 查询列表
      * 
-     * @param notice 公告信息
-     * @return 公告集合
+     * @param notice 信息
+     * @return 集合
      */
     public List<SysNotice> selectNoticeList(SysNotice notice);
 
     /**
-     * 新增公告
+     * 新增
      * 
-     * @param notice 公告信息
+     * @param notice 信息
      * @return 结果
      */
     public int insertNotice(SysNotice notice);
 
     /**
-     * 修改公告
+     * 修改
      * 
-     * @param notice 公告信息
+     * @param notice 信息
      * @return 结果
      */
     public int updateNotice(SysNotice notice);
 
     /**
-     * 批量删除公告
+     * 批量删除
      * 
      * @param noticeIds 需要删除的数据ID
      * @return 结果

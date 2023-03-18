@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-	<th:block th:include="include :: header('通知公告列表')" />
+	<th:block th:include="include :: header('通知列表')" />
 </head>
 <body class="gray-bg">
     <div class="container-div">
@@ -11,13 +11,13 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								公告标题：<input type="text" name="noticeTitle"/>
+								标题：<input type="text" name="noticeTitle"/>
 							</li>
 							<li>
 								操作人员：<input type="text" name="createBy"/>
 							</li>
 							<li>
-								公告类型：<select name="noticeType" th:with="type=${@dict.getType('sys_notice_type')}">
+								类型：<select name="noticeType" th:with="type=${@dict.getType('sys_notice_type')}">
 									<option value="">所有</option>
 									<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
 								</select>
@@ -62,7 +62,7 @@
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
-                modalName: "公告",
+                modalName: "",
                 columns: [{
 		            checkbox: true
 		        },
@@ -72,11 +72,11 @@
 				},
 				{
 					field : 'noticeTitle', 
-					title : '公告标题' 
+					title : '标题'
 				},
 				{
 		            field: 'noticeType',
-		            title: '公告类型',
+		            title: '类型',
 		            align: 'center',
 		            formatter: function(value, row, index) {
 		            	return $.table.selectDictLabel(types, value);

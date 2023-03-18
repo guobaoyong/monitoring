@@ -9,7 +9,7 @@ import com.monitoring.system.mapper.SysNoticeMapper;
 import com.monitoring.system.service.ISysNoticeService;
 
 /**
- * 公告 服务层实现
+ *  服务层实现
  * 
  * @author ruoyi
  * @date 2018-06-25
@@ -21,10 +21,10 @@ public class SysNoticeServiceImpl implements ISysNoticeService
     private SysNoticeMapper noticeMapper;
 
     /**
-     * 查询公告信息
+     * 查询信息
      * 
-     * @param noticeId 公告ID
-     * @return 公告信息
+     * @param noticeId ID
+     * @return 信息
      */
     @Override
     public SysNotice selectNoticeById(Long noticeId)
@@ -33,10 +33,10 @@ public class SysNoticeServiceImpl implements ISysNoticeService
     }
 
     /**
-     * 查询公告列表
+     * 查询列表
      * 
-     * @param notice 公告信息
-     * @return 公告集合
+     * @param notice 信息
+     * @return 集合
      */
     @Override
     public List<SysNotice> selectNoticeList(SysNotice notice)
@@ -45,9 +45,9 @@ public class SysNoticeServiceImpl implements ISysNoticeService
     }
 
     /**
-     * 新增公告
+     * 新增
      * 
-     * @param notice 公告信息
+     * @param notice 信息
      * @return 结果
      */
     @Override
@@ -57,9 +57,9 @@ public class SysNoticeServiceImpl implements ISysNoticeService
     }
 
     /**
-     * 修改公告
+     * 修改
      * 
-     * @param notice 公告信息
+     * @param notice 信息
      * @return 结果
      */
     @Override
@@ -69,7 +69,7 @@ public class SysNoticeServiceImpl implements ISysNoticeService
     }
 
     /**
-     * 删除公告对象
+     * 删除对象
      * 
      * @param ids 需要删除的数据ID
      * @return 结果

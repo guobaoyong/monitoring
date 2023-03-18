@@ -30,7 +30,7 @@
             <label class="col-sm-3 control-label">采集时间：</label>
             <div class="col-sm-8">
                 <div class="input-group date">
-                    <input name="collectTime" th:value="${#dates.format(sysCollectData.collectTime, 'yyyy-MM-dd')}"
+                    <input name="collectTime" th:value="${#dates.format(sysCollectData.collectTime, 'yyyy-MM-dd HH:mm:ss')}"
                            class="form-control" placeholder="yyyy-MM-dd" type="text">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
@@ -59,8 +59,8 @@
     }
 
     $("input[name='collectTime']").datetimepicker({
-        format: "yyyy-mm-dd",
-        minView: "month",
+        format: "yyyy-mm-dd hh:ii:ss",
+        minView: "hour",
         autoclose: true
     });
 </script>

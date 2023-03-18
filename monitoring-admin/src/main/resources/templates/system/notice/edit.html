@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
-	<th:block th:include="include :: header('修改通知公告')" />
+	<th:block th:include="include :: header('修改通知')" />
 	<th:block th:include="include :: summernote-css" />
 </head>
 <body class="white-bg">
@@ -9,13 +9,13 @@
         <form class="form-horizontal m" id="form-notice-edit" th:object="${notice}">
             <input id="noticeId" name="noticeId" th:field="*{noticeId}"  type="hidden">
             <div class="form-group">	
-                <label class="col-sm-2 control-label is-required">公告标题：</label>
+                <label class="col-sm-2 control-label is-required">标题：</label>
                 <div class="col-sm-10">
                     <input id="noticeTitle" name="noticeTitle" th:field="*{noticeTitle}" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">
-				<label class="col-sm-2 control-label">公告类型：</label>
+				<label class="col-sm-2 control-label">类型：</label>
 				<div class="col-sm-10">
 					<select name="noticeType" class="form-control m-b" th:with="type=${@dict.getType('sys_notice_type')}">
 	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{noticeType}"></option>
@@ -23,14 +23,14 @@
 				</div>
 			</div>
             <div class="form-group">	
-                <label class="col-sm-2 control-label">公告内容：</label>
+                <label class="col-sm-2 control-label">内容：</label>
                 <div class="col-sm-10">
                     <input id="noticeContent" name="noticeContent" th:field="*{noticeContent}" type="hidden">
                     <div id="editor" class="summernote"></div>
                 </div>
             </div>
             <div class="form-group">
-				<label class="col-sm-2 control-label">公告状态：</label>
+				<label class="col-sm-2 control-label">状态：</label>
 				<div class="col-sm-10">
 					<div class="radio-box" th:each="dict : ${@dict.getType('sys_notice_status')}">
 						<input type="radio" th:id="${dict.dictCode}" name="status" th:value="${dict.dictValue}" th:field="*{status}">
@@ -47,7 +47,7 @@
     
 	    $(function() {
 		    $('.summernote').summernote({
-		    	placeholder: '请输入公告内容',
+		    	placeholder: '请输入内容',
 		    	height : 192,
 				lang : 'zh-CN',
 				followingToolbar: false,

@@ -94,7 +94,10 @@
                 },
                 {
                     field: 'collectTime',
-                    title: '采集时间'
+                    title: '采集时间',
+                    formatter: function(value, row, index) {
+                        return $.common.dateFormat(value, "yyyy-MM-dd HH:mm:ss");
+                    }
                 },
                 {
                     field: 'remark',

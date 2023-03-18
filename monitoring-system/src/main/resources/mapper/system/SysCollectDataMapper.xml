@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="sensorId != null "> and sensor_id = #{sensorId}</if>
             <if test="temperature != null  and temperature != ''"> and temperature = #{temperature}</if>
             <if test="humidity != null  and humidity != ''"> and humidity = #{humidity}</if>
-            <if test="collectTime != null "> and collect_time = #{collectTime}</if>
+            <if test="collectTime != null "> and collect_time like concat('%', date_format(#{collectTime}, '%Y-%m-%d' ), '%')</if>
         </where>
     </select>
     
