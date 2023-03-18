@@ -8,7 +8,7 @@ import com.monitoring.common.core.domain.entity.SysDictData;
 /**
  * 字典工具类
  * 
- * @author ruoyi
+
  */
 @Component
 public class DictUtils

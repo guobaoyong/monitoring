@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * 位置详情对象 sys_node_info
  *
- * @author ruoyi
+
  * @date 2023-03-15
  */
 public class SysNodeInfo extends BaseEntity {

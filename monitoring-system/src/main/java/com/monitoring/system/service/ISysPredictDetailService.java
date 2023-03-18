@@ -6,7 +6,7 @@ import com.monitoring.system.domain.SysPredictDetail;
 /**
  * 预测详情Service接口
  * 
- * @author ruoyi
+
  * @date 2023-03-17
  */
 public interface ISysPredictDetailService 

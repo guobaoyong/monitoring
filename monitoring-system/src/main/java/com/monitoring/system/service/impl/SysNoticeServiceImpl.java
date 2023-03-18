@@ -11,7 +11,7 @@ import com.monitoring.system.service.ISysNoticeService;
 /**
  *  服务层实现
  * 
- * @author ruoyi
+
  * @date 2018-06-25
  */
 @Service

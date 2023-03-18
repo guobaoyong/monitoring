@@ -6,7 +6,7 @@ import com.monitoring.system.domain.SysDataRecord;
 /**
  * 位置数据Service接口
  * 
- * @author ruoyi
+
  * @date 2023-03-15
  */
 public interface ISysDataRecordService 

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * 位置数据对象 sys_data_record
  *
- * @author ruoyi
+
  * @date 2023-03-15
  */
 public class SysDataRecord extends BaseEntity {

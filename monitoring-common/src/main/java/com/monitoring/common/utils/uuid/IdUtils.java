@@ -3,7 +3,7 @@ package com.monitoring.common.utils.uuid;
 /**
  * ID生成器工具类
  * 
- * @author ruoyi
+
  */
 public class IdUtils
 {

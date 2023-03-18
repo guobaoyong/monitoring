@@ -7,7 +7,7 @@ import com.monitoring.common.core.domain.entity.SysDept;
 /**
  * 院系管理 数据层
  * 
- * @author ruoyi
+
  */
 public interface SysDeptMapper
 {

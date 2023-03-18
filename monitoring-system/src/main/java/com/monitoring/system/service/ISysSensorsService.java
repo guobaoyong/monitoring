@@ -6,7 +6,7 @@ import com.monitoring.system.domain.SysSensors;
 /**
  * 传感器管理Service接口
  * 
- * @author ruoyi
+
  * @date 2023-03-15
  */
 public interface ISysSensorsService 

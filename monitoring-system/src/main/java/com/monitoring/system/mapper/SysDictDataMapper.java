@@ -7,7 +7,7 @@ import com.monitoring.common.core.domain.entity.SysDictData;
 /**
  * 字典表 数据层
  * 
- * @author ruoyi
+
  */
 public interface SysDictDataMapper
 {

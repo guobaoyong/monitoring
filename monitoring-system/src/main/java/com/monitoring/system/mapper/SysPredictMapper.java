@@ -6,7 +6,7 @@ import com.monitoring.system.domain.SysPredict;
 /**
  * 预测记录Mapper接口
  * 
- * @author ruoyi
+
  * @date 2023-03-16
  */
 public interface SysPredictMapper 

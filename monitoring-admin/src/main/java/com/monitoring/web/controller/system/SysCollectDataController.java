@@ -23,7 +23,7 @@ import com.monitoring.common.core.page.TableDataInfo;
 /**
  * 采集记录Controller
  *
- * @author ruoyi
+
  * @date 2023-03-16
  */
 @Controller

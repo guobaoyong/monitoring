@@ -6,7 +6,7 @@ import com.monitoring.generator.domain.GenTableColumn;
 /**
  * 业务字段 数据层
  * 
- * @author ruoyi
+
  */
 public interface GenTableColumnMapper
 {

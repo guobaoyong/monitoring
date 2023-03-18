@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.monitoring.system.mapper.SysCollectDataMapper">
-    
+
     <resultMap type="SysCollectData" id="SysCollectDataResult">
         <result property="collectId"    column="collect_id"    />
         <result property="createBy"    column="create_by"    />
@@ -15,27 +15,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="temperature"    column="temperature"    />
         <result property="humidity"    column="humidity"    />
         <result property="collectTime"    column="collect_time"    />
+        <result property="abnormal"    column="abnormal"    />
+        <result property="earlyWarning"    column="early_warning"    />
     </resultMap>
 
     <sql id="selectSysCollectDataVo">
-        select collect_id, create_by, create_time, update_by, update_time, remark, sensor_id, temperature, humidity, collect_time from sys_collect_data
+        select collect_id, create_by, create_time, update_by, update_time, remark, sensor_id, temperature, humidity, collect_time, abnormal, early_warning from sys_collect_data
     </sql>
 
     <select id="selectSysCollectDataList" parameterType="SysCollectData" resultMap="SysCollectDataResult">
         <include refid="selectSysCollectDataVo"/>
-        <where>  
+        <where>
             <if test="sensorId != null "> and sensor_id = #{sensorId}</if>
             <if test="temperature != null  and temperature != ''"> and temperature = #{temperature}</if>
             <if test="humidity != null  and humidity != ''"> and humidity = #{humidity}</if>
             <if test="collectTime != null "> and collect_time like concat('%', date_format(#{collectTime}, '%Y-%m-%d' ), '%')</if>
+            <if test="abnormal != null  and abnormal != ''"> and abnormal = #{abnormal}</if>
+            <if test="earlyWarning != null  and earlyWarning != ''"> and early_warning = #{earlyWarning}</if>
         </where>
     </select>
-    
+
     <select id="selectSysCollectDataByCollectId" parameterType="Long" resultMap="SysCollectDataResult">
         <include refid="selectSysCollectDataVo"/>
         where collect_id = #{collectId}
     </select>
-        
+
     <insert id="insertSysCollectData" parameterType="SysCollectData" useGeneratedKeys="true" keyProperty="collectId">
         insert into sys_collect_data
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -48,7 +52,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="temperature != null">temperature,</if>
             <if test="humidity != null">humidity,</if>
             <if test="collectTime != null">collect_time,</if>
-         </trim>
+            <if test="abnormal != null">abnormal,</if>
+            <if test="earlyWarning != null">early_warning,</if>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="createBy != null">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
@@ -59,7 +65,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="temperature != null">#{temperature},</if>
             <if test="humidity != null">#{humidity},</if>
             <if test="collectTime != null">#{collectTime},</if>
-         </trim>
+            <if test="abnormal != null">#{abnormal},</if>
+            <if test="earlyWarning != null">#{earlyWarning},</if>
+        </trim>
     </insert>
 
     <update id="updateSysCollectData" parameterType="SysCollectData">
@@ -74,6 +82,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="temperature != null">temperature = #{temperature},</if>
             <if test="humidity != null">humidity = #{humidity},</if>
             <if test="collectTime != null">collect_time = #{collectTime},</if>
+            <if test="abnormal != null">abnormal = #{abnormal},</if>
+            <if test="earlyWarning != null">early_warning = #{earlyWarning},</if>
         </trim>
         where collect_id = #{collectId}
     </update>
@@ -83,10 +93,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteSysCollectDataByCollectIds" parameterType="String">
-        delete from sys_collect_data where collect_id in 
+        delete from sys_collect_data where collect_id in
         <foreach item="collectId" collection="array" open="(" separator="," close=")">
             #{collectId}
         </foreach>
     </delete>
+
+    <select id="selectSysCollectDataListByBOthNull" resultMap="SysCollectDataResult">
+        <include refid="selectSysCollectDataVo"/>
+        where abnormal IS NULL AND early_warning IS NULL
+    </select>
 
 </mapper>

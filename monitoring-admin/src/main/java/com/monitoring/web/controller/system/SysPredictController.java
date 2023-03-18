@@ -5,10 +5,16 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.hutool.core.io.FileUtil;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.monitoring.system.domain.SysCo;
 import com.monitoring.system.domain.SysNodeInfo;
+import com.monitoring.system.domain.SysPredictDetail;
+import com.monitoring.system.service.ISysPredictDetailService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +40,6 @@ import javax.sql.rowset.serial.SerialBlob;
 /**
  * 预测记录Controller
  *
- * @author ruoyi
  * @date 2023-03-16
  */
 @Controller
@@ -45,6 +50,9 @@ public class SysPredictController extends BaseController {
 
     @Autowired
     private ISysPredictService sysPredictService;
+
+    @Autowired
+    private ISysPredictDetailService sysPredictDetailService;
 
     @RequiresPermissions("system:predict:view")
     @GetMapping()
@@ -149,5 +157,27 @@ public class SysPredictController extends BaseController {
         sysPredict = sysPredictService.selectSysPredictByPredictId(sysPredict.getPredictId());
         mmap.put("sysPredict", sysPredict);
         return prefix + "/detail";
+    }
+
+    /**
+     * 获取预测数据
+     */
+    @RequiresPermissions("system:predict:figure")
+    @PostMapping("/predictIdData")
+    @ResponseBody
+    public AjaxResult predictIdData(SysPredict sysPredict,String type) {
+        // 根据预测ID和预测日期拿到明日的数据
+        SysPredictDetail sysPredictDetail = new SysPredictDetail();
+        sysPredictDetail.setPredictId(sysPredict.getPredictId());
+        List<SysPredictDetail> sysPredictDetails = sysPredictDetailService.selectSysPredictDetailList(sysPredictDetail);
+        List<Object> list = new ArrayList<>();
+        sysPredictDetails.forEach(predictDetail -> {
+            if (type.equals("x")) {
+                list.add(predictDetail.getPredictDay());
+            } else if (type.equals("y")) {
+                list.add(predictDetail.getPredictValue());
+            }
+        });
+        return AjaxResult.success(list);
     }
 }

@@ -8,7 +8,7 @@ import com.monitoring.common.core.domain.entity.SysRole;
 /**
  * 院系管理 服务层
  * 
- * @author ruoyi
+
  */
 public interface ISysDeptService
 {

@@ -11,7 +11,7 @@ import com.monitoring.common.utils.StringUtils;
 /**
  * 自定义权限拦截器，将权限字符串放到当前请求中以便用于多个角色匹配符合要求的权限
  * 
- * @author ruoyi
+
  */
 @Aspect
 @Component

@@ -22,7 +22,7 @@ import com.monitoring.common.core.page.TableDataInfo;
 /**
  * 预测详情Controller
  * 
- * @author ruoyi
+
  * @date 2023-03-17
  */
 @Controller

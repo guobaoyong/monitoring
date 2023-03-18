@@ -22,9 +22,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectSysPredictDetailList" parameterType="SysPredictDetail" resultMap="SysPredictDetailResult">
         <include refid="selectSysPredictDetailVo"/>
-        <where>  
-            <if test="predictDay != null  and predictDay != ''"> and predict_day = #{predictDay}</if>
+        <where>
+            <if test="predictDay != null  and predictDay != ''"> and predict_day like concat('%', #{predictDay}, '%')</if>
             <if test="predictValue != null  and predictValue != ''"> and predict_value = #{predictValue}</if>
+            <if test="predictId != null  and predictId != ''"> and predict_id = #{predictId}</if>
         </where>
     </select>
     

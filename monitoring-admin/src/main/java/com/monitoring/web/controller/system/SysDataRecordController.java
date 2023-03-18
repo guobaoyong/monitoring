@@ -24,7 +24,7 @@ import com.monitoring.common.core.page.TableDataInfo;
 /**
  * 位置数据Controller
  *
- * @author ruoyi
+
  * @date 2023-03-15
  */
 @Controller

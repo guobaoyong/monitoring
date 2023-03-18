@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * 传感器管理对象 sys_sensors
  * 
- * @author ruoyi
+
  * @date 2023-03-15
  */
 public class SysSensors extends BaseEntity

@@ -6,7 +6,7 @@ import com.monitoring.system.domain.SysNotice;
 /**
  *  数据层
  * 
- * @author ruoyi
+
  */
 public interface SysNoticeMapper
 {

@@ -6,7 +6,7 @@ import com.monitoring.system.domain.SysNotice;
 /**
  *  服务层
  * 
- * @author ruoyi
+
  */
 public interface ISysNoticeService
 {

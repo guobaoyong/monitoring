@@ -10,7 +10,7 @@ import com.monitoring.framework.shiro.session.OnlineSessionDAO;
 /**
  * 同步Session数据到Db
  * 
- * @author ruoyi
+
  */
 public class SyncOnlineSessionFilter extends PathMatchingFilter
 {

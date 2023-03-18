@@ -24,7 +24,7 @@ import com.monitoring.system.service.ISysDeptService;
 /**
  * 院系信息
  * 
- * @author ruoyi
+
  */
 @Controller
 @RequestMapping("/system/dept")

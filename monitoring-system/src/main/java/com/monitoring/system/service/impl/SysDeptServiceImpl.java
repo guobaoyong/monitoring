@@ -23,7 +23,7 @@ import com.monitoring.system.service.ISysDeptService;
 /**
  * 院系管理 服务实现
  * 
- * @author ruoyi
+
  */
 @Service
 public class SysDeptServiceImpl implements ISysDeptService

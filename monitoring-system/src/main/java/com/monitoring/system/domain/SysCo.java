@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * 覆盖优化记录对象 sys_co
  *
- * @author ruoyi
+
  * @date 2023-03-15
  */
 public class SysCo extends BaseEntity {

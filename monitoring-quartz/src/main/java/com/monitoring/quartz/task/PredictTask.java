@@ -16,10 +16,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Component("predictTask")
 @Service
-public class predictTask {
+public class PredictTask {
 
     @Autowired
     private ISysSensorsService sysSensorsService;
@@ -65,13 +66,13 @@ public class predictTask {
             DateTime end = DateUtil.nextMonth();
             // 生成执行记录
             SysNotice notice = new SysNotice();
-            String record = StrUtil.format("ID为{}的{}传感器，于{}开始执行数据预测任务，{}结束，耗时：{}秒，执行状态：{}", sensors.getSensorsId(), sensors.getType().equals("temperature") ? "温度" : "湿度", start, end, DateUtil.between(start, end, DateUnit.SECOND), flag);
+            AtomicReference<String> record = new AtomicReference<>(StrUtil.format("ID为{}的{}传感器，于{}开始执行数据预测任务，{}结束，耗时：{}秒，执行状态：{}", sensors.getSensorsId(), sensors.getType().equals("temperature") ? "温度" : "湿度", start, end, DateUtil.between(start, end, DateUnit.SECOND), flag));
             notice.setNoticeTitle("预测执行过程记录");
             notice.setCreateBy("admin");
             // 执行记录
             notice.setNoticeType("1");
             notice.setStatus(flag.equals("正常") ? "0" : "1");
-            notice.setNoticeContent(record);
+            notice.setNoticeContent(record.get());
             sysNoticeService.insertNotice(notice);
             // 生成详细预测数据
             String tomorrow = DateUtil.tomorrow().toDateStr();
@@ -107,6 +108,17 @@ public class predictTask {
                             sysPredictDetail.setPredictValue("");
                         }
                         predictDetailService.insertSysPredictDetail(sysPredictDetail);
+                        // 是否需要事前预警
+                        if (Double.valueOf(sysPredictDetail.getPredictValue()) >= Double.valueOf(sensors.getEarlyWarning())) {
+                            // 写入事前预警信息
+                            record.set(StrUtil.format("ID为{}的{}传感器，经预测，将于{}达到{}，可能超过预警值，请及时关注！", sensors.getSensorsId(), sensors.getType().equals("temperature") ? "温度" : "湿度", sysPredictDetail.getPredictDay(), sysPredictDetail.getPredictValue()));
+                            notice.setNoticeTitle("事前预警记录");
+                            notice.setCreateBy("admin");
+                            notice.setNoticeType("2");
+                            notice.setStatus("1");
+                            notice.setNoticeContent(record.get());
+                            sysNoticeService.insertNotice(notice);
+                        }
                     }
                 }
             });

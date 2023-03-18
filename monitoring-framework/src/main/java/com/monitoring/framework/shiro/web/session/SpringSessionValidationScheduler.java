@@ -17,7 +17,7 @@ import com.monitoring.common.utils.Threads;
 /**
  * 自定义任务调度器完成
  * 
- * @author ruoyi
+
  */
 @Component
 public class SpringSessionValidationScheduler implements SessionValidationScheduler

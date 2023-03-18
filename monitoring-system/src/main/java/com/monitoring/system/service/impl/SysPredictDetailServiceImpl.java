@@ -12,7 +12,7 @@ import com.monitoring.common.core.text.Convert;
 /**
  * 预测详情Service业务层处理
  * 
- * @author ruoyi
+
  * @date 2023-03-17
  */
 @Service

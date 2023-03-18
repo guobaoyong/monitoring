@@ -8,7 +8,7 @@ import com.monitoring.common.config.datasource.DynamicDataSourceContextHolder;
 /**
  * 动态数据源
  * 
- * @author ruoyi
+
  */
 public class DynamicDataSource extends AbstractRoutingDataSource
 {

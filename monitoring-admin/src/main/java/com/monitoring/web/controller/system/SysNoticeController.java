@@ -23,7 +23,7 @@ import com.monitoring.system.service.ISysNoticeService;
 /**
  *  信息操作处理
  *
- * @author ruoyi
+
  */
 @Controller
 @RequestMapping("/system/notice")

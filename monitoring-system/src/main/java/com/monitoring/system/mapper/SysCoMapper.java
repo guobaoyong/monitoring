@@ -6,7 +6,7 @@ import com.monitoring.system.domain.SysCo;
 /**
  * 覆盖优化记录Mapper接口
  * 
- * @author ruoyi
+
  * @date 2023-03-15
  */
 public interface SysCoMapper 

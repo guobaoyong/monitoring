@@ -13,7 +13,7 @@ import com.monitoring.common.utils.StringUtils;
 /**
  * RuoYi首创 js调用 thymeleaf 实现按钮权限可见性
  * 
- * @author ruoyi
+
  */
 @Service("permission")
 public class PermissionService

@@ -22,7 +22,7 @@ import com.monitoring.common.core.page.TableDataInfo;
 /**
  * 传感器管理Controller
  * 
- * @author ruoyi
+
  * @date 2023-03-15
  */
 @Controller

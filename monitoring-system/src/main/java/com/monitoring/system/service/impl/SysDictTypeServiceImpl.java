@@ -24,7 +24,7 @@ import com.monitoring.system.service.ISysDictTypeService;
 /**
  * 字典 业务层处理
  * 
- * @author ruoyi
+
  */
 @Service
 public class SysDictTypeServiceImpl implements ISysDictTypeService

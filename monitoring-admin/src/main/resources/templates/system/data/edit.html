@@ -30,9 +30,30 @@
             <label class="col-sm-3 control-label">采集时间：</label>
             <div class="col-sm-8">
                 <div class="input-group date">
-                    <input name="collectTime" th:value="${#dates.format(sysCollectData.collectTime, 'yyyy-MM-dd HH:mm:ss')}"
+                    <input name="collectTime"
+                           th:value="${#dates.format(sysCollectData.collectTime, 'yyyy-MM-dd HH:mm:ss')}"
                            class="form-control" placeholder="yyyy-MM-dd" type="text">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">是否异常：</label>
+            <div class="col-sm-8">
+                <div class="radio-box" th:each="dict : ${@dict.getType('sys_collect_status')}">
+                    <input type="radio" th:id="${'abnormal_' + dict.dictCode}" name="abnormal"
+                           th:value="${dict.dictValue}" th:field="*{abnormal}">
+                    <label th:for="${'abnormal_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">是否预警：</label>
+            <div class="col-sm-8">
+                <div class="radio-box" th:each="dict : ${@dict.getType('sys_collect_status')}">
+                    <input type="radio" th:id="${'earlyWarning_' + dict.dictCode}" name="earlyWarning"
+                           th:value="${dict.dictValue}" th:field="*{earlyWarning}">
+                    <label th:for="${'earlyWarning_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
                 </div>
             </div>
         </div>

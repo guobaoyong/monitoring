@@ -6,7 +6,7 @@ import com.monitoring.system.domain.SysNodeInfo;
 /**
  * 位置详情Mapper接口
  * 
- * @author ruoyi
+
  * @date 2023-03-15
  */
 public interface SysNodeInfoMapper 

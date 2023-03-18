@@ -6,7 +6,7 @@ import com.monitoring.system.domain.SysRoleDept;
 /**
  * 角色与院系关联表 数据层
  * 
- * @author ruoyi
+
  */
 public interface SysRoleDeptMapper
 {

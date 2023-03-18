@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * 预测记录对象 sys_predict
  *
- * @author ruoyi
+
  * @date 2023-03-17
  */
 public class SysPredict extends BaseEntity {

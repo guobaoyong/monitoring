@@ -25,7 +25,7 @@ import com.monitoring.common.utils.file.FileUtils;
 /**
  * 通用请求处理
  * 
- * @author ruoyi
+
  */
 @Controller
 @RequestMapping("/common")
