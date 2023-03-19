@@ -94,4 +94,9 @@ public class SysPredictServiceImpl implements ISysPredictService
     {
         return sysPredictMapper.deleteSysPredictByPredictId(predictId);
     }
+
+    @Override
+    public int selectCount() {
+        return sysPredictMapper.selectCount();
+    }
 }

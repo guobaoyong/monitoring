@@ -104,4 +104,8 @@
         where abnormal IS NULL AND early_warning IS NULL
     </select>
 
+    <select id="selectCount" resultType="Integer">
+        select count(1) from sys_collect_data
+    </select>
+
 </mapper>

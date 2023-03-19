@@ -1,7 +1,11 @@
 package com.monitoring.web.controller.system;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import cn.hutool.core.date.DateUtil;
+import com.monitoring.system.domain.*;
+import com.monitoring.system.service.ISysSensorsService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.monitoring.common.annotation.Log;
 import com.monitoring.common.enums.BusinessType;
-import com.monitoring.system.domain.SysCollectData;
 import com.monitoring.system.service.ISysCollectDataService;
 import com.monitoring.common.core.controller.BaseController;
 import com.monitoring.common.core.domain.AjaxResult;
@@ -23,7 +26,6 @@ import com.monitoring.common.core.page.TableDataInfo;
 /**
  * 采集记录Controller
  *
-
  * @date 2023-03-16
  */
 @Controller
@@ -34,6 +36,9 @@ public class SysCollectDataController extends BaseController {
 
     @Autowired
     private ISysCollectDataService sysCollectDataService;
+
+    @Autowired
+    private ISysSensorsService sysSensorsService;
 
     @RequiresPermissions("system:data:view")
     @GetMapping()
@@ -116,5 +121,48 @@ public class SysCollectDataController extends BaseController {
     @ResponseBody
     public AjaxResult remove(String ids) {
         return toAjax(sysCollectDataService.deleteSysCollectDataByCollectIds(ids));
+    }
+
+    /**
+     * 查看采集图像
+     */
+    @RequiresPermissions("system:data:figure")
+    @GetMapping("/figure")
+    public String figure(ModelMap mmap) {
+        List<SysSensors> sysSensors = sysSensorsService.selectSysSensorsList(null);
+        List<Object> sysSensorsIds = new ArrayList<>();
+        sysSensors.forEach(sensor -> {
+            if (sensor.getType().equals("temperature")) {
+                sensor.setType("温度传感器");
+            } else if (sensor.getType().equals("humidity")) {
+                sensor.setType("湿度传感器");
+            }
+            sysSensorsIds.add(sensor.getSensorsId());
+        });
+        mmap.put("sysSensors", sysSensors);
+        mmap.put("sysSensorsIds", sysSensorsIds);
+        mmap.put("today", DateUtil.today());
+        return prefix + "/figure";
+    }
+
+    /**
+     * 获取采集数据
+     */
+    @RequiresPermissions("system:data:figure")
+    @PostMapping("/collectData")
+    @ResponseBody
+    public AjaxResult collectData(SysCollectData collectData, String type) {
+        SysSensors sensors = sysSensorsService.selectSysSensorsBySensorsId(collectData.getSensorId());
+        collectData.setCollectTime(DateUtil.date());
+        List<SysCollectData> sysCollectData = sysCollectDataService.selectSysCollectDataList(collectData);
+        List<Object> list = new ArrayList<>();
+        sysCollectData.forEach(collect -> {
+            if (type.equals("x")) {
+                list.add(collect.getCollectTime());
+            } else if (type.equals("y")) {
+                list.add(sensors.getType().equals("temperature") ? collect.getTemperature() : collect.getHumidity());
+            }
+        });
+        return AjaxResult.success(list);
     }
 }

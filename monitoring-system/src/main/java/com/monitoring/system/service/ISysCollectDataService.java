@@ -64,4 +64,10 @@ public interface ISysCollectDataService {
      * @return 结果
      */
     List<SysCollectData> selectSysCollectDataListByBOthNull();
+
+    /**
+     * 查询传感器数量
+     * @return 结果
+     */
+    int selectCount();
 }

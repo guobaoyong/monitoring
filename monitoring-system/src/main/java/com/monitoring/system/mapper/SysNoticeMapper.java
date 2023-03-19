@@ -49,4 +49,12 @@ public interface SysNoticeMapper
      * @return 结果
      */
     public int deleteNoticeByIds(String[] noticeIds);
+
+    /**
+     * 查询传感器数量
+     *
+     * @return 结果
+     */
+    int selectCount();
+
 }

@@ -167,7 +167,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
         long min = diff % nd % nh / nm;
         // 计算差多少秒//输出结果
         // long sec = diff % nd % nh % nm / ns;
-        return day + "天" + hour + "小时" + min + "分钟";
+        return day + ":" + hour + ":" + min;
     }
 
     /**

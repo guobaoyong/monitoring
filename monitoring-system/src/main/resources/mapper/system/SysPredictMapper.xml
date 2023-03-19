@@ -104,4 +104,8 @@
         </foreach>
     </delete>
 
+    <select id="selectCount" resultType="Integer">
+        select count(1) from sys_predict
+    </select>
+
 </mapper>

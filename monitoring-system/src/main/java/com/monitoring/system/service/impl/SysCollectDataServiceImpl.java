@@ -93,4 +93,9 @@ public class SysCollectDataServiceImpl implements ISysCollectDataService {
     public List<SysCollectData> selectSysCollectDataListByBOthNull() {
         return sysCollectDataMapper.selectSysCollectDataListByBOthNull();
     }
+
+    @Override
+    public int selectCount() {
+        return sysCollectDataMapper.selectCount();
+    }
 }

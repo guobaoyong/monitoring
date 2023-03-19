@@ -1,6 +1,6 @@
 /**
  * 基于bootstrapTreeTable/bootstrap-table-treegrid修改
- * Copyright (c) 2019 ruoyi
+ * 
  */
 (function($) {
     "use strict";

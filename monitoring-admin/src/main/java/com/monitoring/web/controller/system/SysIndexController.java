@@ -5,6 +5,10 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.date.DateUtil;
+import com.monitoring.framework.web.domain.Server;
+import com.monitoring.system.domain.SysNotice;
+import com.monitoring.system.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,8 +28,6 @@ import com.monitoring.common.utils.DateUtils;
 import com.monitoring.common.utils.ServletUtils;
 import com.monitoring.common.utils.StringUtils;
 import com.monitoring.framework.shiro.service.SysPasswordService;
-import com.monitoring.system.service.ISysConfigService;
-import com.monitoring.system.service.ISysMenuService;
 
 /**
  * 首页 业务处理
@@ -42,6 +44,18 @@ public class SysIndexController extends BaseController {
 
     @Autowired
     private SysPasswordService passwordService;
+
+    @Autowired
+    private ISysSensorsService sysSensorsService;
+
+    @Autowired
+    private ISysCollectDataService sysCollectDataService;
+
+    @Autowired
+    private ISysPredictService sysPredictService;
+
+    @Autowired
+    private ISysNoticeService sysNoticeService;
 
     // 系统首页
     @GetMapping("/index")
@@ -120,8 +134,19 @@ public class SysIndexController extends BaseController {
 
     // 系统介绍
     @GetMapping("/system/main")
-    public String main(ModelMap mmap) {
-        mmap.put("version", MonitoringConfig.getVersion());
+    public String main(ModelMap mmap) throws Exception {
+        // 获取传感器数量
+        mmap.put("sensorsCount", sysSensorsService.selectCount());
+        mmap.put("collectDataCount", sysCollectDataService.selectCount());
+        mmap.put("predictCount", sysPredictService.selectCount());
+        Server server = new Server();
+        server.copyTo();
+        mmap.put("server", server);
+        // 获取今日预警列表
+        SysNotice sysNotice = new SysNotice();
+        sysNotice.setCreateTime(DateUtil.date());
+        List<SysNotice> sysNotices = sysNoticeService.selectNoticeList(sysNotice);
+        mmap.put("sysNotices", sysNotices);
         return "main_v1";
     }
 

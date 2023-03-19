@@ -93,39 +93,37 @@
             }
         });
         var lineoption = {
-                xAxis: {
-                    type: 'category',
-                    data: predictXData
-                },
-                yAxis: {
-                    type: 'value'
-                },
-                series: [
-                    {
-                        data: predictIdData,
-                        type: 'line',
-                        smooth: true
-                    }
-                ],
-                tooltip: { // 鼠标悬浮提示框显示 X和Y 轴数据
-                    trigger: 'axis',
-                    backgroundColor: 'rgba(32, 33, 36,.7)',
-                    borderColor: 'rgba(32, 33, 36,0.20)',
-                    borderWidth: 1,
-                    textStyle: { // 文字提示样式
-                        color: '#fff',
-                        fontSize: '12'
-                    },
-                    axisPointer: { // 坐标轴虚线
-                        type: 'cross',
-                        label: {
-                            backgroundColor: '#6a7985'
-                        }
-                    },
+            xAxis: {
+                type: 'category',
+                data: predictXData
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    data: predictIdData,
+                    type: 'line',
+                    smooth: true
                 }
-
+            ],
+            tooltip: { // 鼠标悬浮提示框显示 X和Y 轴数据
+                trigger: 'axis',
+                backgroundColor: 'rgba(32, 33, 36,.7)',
+                borderColor: 'rgba(32, 33, 36,0.20)',
+                borderWidth: 1,
+                textStyle: { // 文字提示样式
+                    color: '#fff',
+                    fontSize: '12'
+                },
+                axisPointer: { // 坐标轴虚线
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                },
             }
-        ;
+        };
         lineChart.setOption(lineoption);
         $(window).resize(lineChart.resize);
     });

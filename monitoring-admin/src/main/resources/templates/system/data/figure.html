@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('采集数据图标')"/>
+    <th:block th:include="include :: echarts-js"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox-title">
+                <h5 th:text="${today}"></h5>
+                <h5>的采集数据图像</h5>
+            </div>
+        </div>
+    </div>
+    <div class="row" th:each="sysSensor:${sysSensors}">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>传感器ID为<span th:text="${sysSensor.sensorsId}"></span>的<span th:text="${sysSensor.type}"></span>采集数据
+                    </h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" th:id="'line'+ ${sysSensor.sensorsId}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: echarts-js"/>
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script th:inline="javascript">
+    var prefix = ctx + "system/data";
+
+    var sysSensorsIds = [[${sysSensorsIds}]];
+
+    console.log(sysSensorsIds);
+
+    $(function () {
+        for (let i = 0; i < sysSensorsIds.length; i++) {
+            // 初始位置分布
+            var lineChart = echarts.init(document.getElementById("line" + sysSensorsIds[i]));
+            var xData = [];
+            var yData = [];
+            $.ajax({
+                url: prefix + "/collectData",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    sensorId: sysSensorsIds[i],
+                    type: 'x'
+                },
+                async: false,
+                success: function (result) {
+                    $.each(result.data, function (n, value) {
+                        xData.push(value);
+                    });
+                }
+            });
+            $.ajax({
+                url: prefix + "/collectData",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    sensorId: sysSensorsIds[i],
+                    type: 'y'
+                },
+                async: false,
+                success: function (result) {
+                    $.each(result.data, function (n, value) {
+                        yData.push(value);
+                    });
+                }
+            });
+            var lineoption = {
+                xAxis: {
+                    type: 'category',
+                    data: xData
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        data: yData,
+                        type: 'line',
+                        smooth: true
+                    }
+                ],
+                tooltip: { // 鼠标悬浮提示框显示 X和Y 轴数据
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(32, 33, 36,.7)',
+                    borderColor: 'rgba(32, 33, 36,0.20)',
+                    borderWidth: 1,
+                    textStyle: { // 文字提示样式
+                        color: '#fff',
+                        fontSize: '12'
+                    },
+                    axisPointer: { // 坐标轴虚线
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    },
+                }
+            };
+            lineChart.setOption(lineoption);
+            $(window).resize(lineChart.resize);
+        }
+    });
+</script>
+</body>
+</html>
