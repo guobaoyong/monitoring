@@ -25,6 +25,7 @@ import java.util.List;
  */
 @Controller
 public class SysRegisterController extends BaseController {
+
     @Autowired
     private SysRegisterService registerService;
 

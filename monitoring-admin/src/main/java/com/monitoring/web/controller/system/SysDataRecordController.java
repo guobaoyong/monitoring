@@ -24,12 +24,12 @@ import com.monitoring.common.core.page.TableDataInfo;
 /**
  * 位置数据Controller
  *
-
  * @date 2023-03-15
  */
 @Controller
 @RequestMapping("/system/record")
 public class SysDataRecordController extends BaseController {
+
     private String prefix = "system/record";
 
     @Autowired

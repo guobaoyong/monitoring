@@ -14,12 +14,11 @@ import com.monitoring.framework.web.service.CacheService;
 
 /**
  * 缓存监控
- *
-
  */
 @Controller
 @RequestMapping("/monitor/cache")
 public class CacheController extends BaseController {
+
     private String prefix = "monitor/cache";
 
     @Autowired

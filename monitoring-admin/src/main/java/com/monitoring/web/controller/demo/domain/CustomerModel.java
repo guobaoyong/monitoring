@@ -1,16 +1,15 @@
 package com.monitoring.web.controller.demo.domain;
 
 import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 客户测试信息
- * 
-
  */
-public class CustomerModel
-{
+public class CustomerModel {
+
     /**
      * 客户姓名
      */
@@ -41,76 +40,64 @@ public class CustomerModel
      */
     private List<GoodsModel> goods;
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getPhonenumber()
-    {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
-    public void setPhonenumber(String phonenumber)
-    {
+    public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
     }
 
 
-    public String getSex()
-    {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(String sex)
-    {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
-    public String getBirthday()
-    {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday)
-    {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public String getRemark()
-    {
+    public String getRemark() {
         return remark;
     }
 
-    public void setRemark(String remark)
-    {
+    public void setRemark(String remark) {
         this.remark = remark;
     }
 
-    public List<GoodsModel> getGoods()
-    {
+    public List<GoodsModel> getGoods() {
         return goods;
     }
 
-    public void setGoods(List<GoodsModel> goods)
-    {
+    public void setGoods(List<GoodsModel> goods) {
         this.goods = goods;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("name", getName())
-            .append("phonenumber", getPhonenumber())
-            .append("sex", getSex())
-            .append("birthday", getBirthday())
-            .append("goods", getGoods())
-            .append("remark", getRemark())
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("name", getName())
+                .append("phonenumber", getPhonenumber())
+                .append("sex", getSex())
+                .append("birthday", getBirthday())
+                .append("goods", getGoods())
+                .append("remark", getRemark())
+                .toString();
     }
 }

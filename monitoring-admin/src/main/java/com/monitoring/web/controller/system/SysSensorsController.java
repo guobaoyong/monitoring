@@ -1,6 +1,7 @@
 package com.monitoring.web.controller.system;
 
 import java.util.List;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,14 +22,13 @@ import com.monitoring.common.core.page.TableDataInfo;
 
 /**
  * 传感器管理Controller
- * 
-
+ *
  * @date 2023-03-15
  */
 @Controller
 @RequestMapping("/system/sensors")
-public class SysSensorsController extends BaseController
-{
+public class SysSensorsController extends BaseController {
+
     private String prefix = "system/sensors";
 
     @Autowired
@@ -36,8 +36,7 @@ public class SysSensorsController extends BaseController
 
     @RequiresPermissions("system:sensors:view")
     @GetMapping()
-    public String sensors()
-    {
+    public String sensors() {
         return prefix + "/sensors";
     }
 
@@ -47,8 +46,7 @@ public class SysSensorsController extends BaseController
     @RequiresPermissions("system:sensors:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(SysSensors sysSensors)
-    {
+    public TableDataInfo list(SysSensors sysSensors) {
         startPage();
         List<SysSensors> list = sysSensorsService.selectSysSensorsList(sysSensors);
         return getDataTable(list);
@@ -61,8 +59,7 @@ public class SysSensorsController extends BaseController
     @Log(title = "传感器管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SysSensors sysSensors)
-    {
+    public AjaxResult export(SysSensors sysSensors) {
         List<SysSensors> list = sysSensorsService.selectSysSensorsList(sysSensors);
         ExcelUtil<SysSensors> util = new ExcelUtil<SysSensors>(SysSensors.class);
         return util.exportExcel(list, "传感器管理数据");
@@ -72,8 +69,7 @@ public class SysSensorsController extends BaseController
      * 新增传感器管理
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -84,8 +80,7 @@ public class SysSensorsController extends BaseController
     @Log(title = "传感器管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysSensors sysSensors)
-    {
+    public AjaxResult addSave(SysSensors sysSensors) {
         return toAjax(sysSensorsService.insertSysSensors(sysSensors));
     }
 
@@ -94,8 +89,7 @@ public class SysSensorsController extends BaseController
      */
     @RequiresPermissions("system:sensors:edit")
     @GetMapping("/edit/{sensorsId}")
-    public String edit(@PathVariable("sensorsId") Long sensorsId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("sensorsId") Long sensorsId, ModelMap mmap) {
         SysSensors sysSensors = sysSensorsService.selectSysSensorsBySensorsId(sensorsId);
         mmap.put("sysSensors", sysSensors);
         return prefix + "/edit";
@@ -108,8 +102,7 @@ public class SysSensorsController extends BaseController
     @Log(title = "传感器管理", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysSensors sysSensors)
-    {
+    public AjaxResult editSave(SysSensors sysSensors) {
         return toAjax(sysSensorsService.updateSysSensors(sysSensors));
     }
 
@@ -118,10 +111,9 @@ public class SysSensorsController extends BaseController
      */
     @RequiresPermissions("system:sensors:remove")
     @Log(title = "传感器管理", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(sysSensorsService.deleteSysSensorsBySensorsIds(ids));
     }
 }

@@ -31,11 +31,10 @@ import com.monitoring.framework.shiro.service.SysPasswordService;
 
 /**
  * 首页 业务处理
- *
-
  */
 @Controller
 public class SysIndexController extends BaseController {
+
     @Autowired
     private ISysMenuService menuService;
 
@@ -77,7 +76,7 @@ public class SysIndexController extends BaseController {
         mmap.put("isDefaultModifyPwd", initPasswordIsModify(user.getPwdUpdateDate()));
         mmap.put("isPasswordExpired", passwordIsExpiration(user.getPwdUpdateDate()));
         mmap.put("isMobile", ServletUtils.checkAgentIsMobile(ServletUtils.getRequest().getHeader("User-Agent")));
-        mmap.put("name",configService.selectConfigByKey("sys.platform.name"));
+        mmap.put("name", configService.selectConfigByKey("sys.platform.name"));
 
         // 菜单导航显示风格
         String menuStyle = configService.selectConfigByKey("sys.index.menuStyle");

@@ -42,7 +42,7 @@
     $(function () {
         for (let i = 0; i < sysDataRecordsIds.length; i++) {
             // 初始位置分布
-            var scatterChart = echarts.init(document.getElementById("scatter"+ sysDataRecordsIds[i]));
+            var scatterChart = echarts.init(document.getElementById("scatter" + sysDataRecordsIds[i]));
             var initLocationData = [];
             $.ajax({
                 url: prefix + "/initLocationData",
@@ -109,10 +109,10 @@
                         },
                         grid3D: {
                             axisLine: {
-                                lineStyle: { color: '#000000' }
+                                lineStyle: {color: '#000000'}
                             },
                             axisPointer: {
-                                lineStyle: { color: '#000000' }
+                                lineStyle: {color: '#000000'}
                             },
                             viewControl: {
                                 // autoRotate: true
@@ -130,7 +130,7 @@
             }
 
             // 网络拓扑
-            var graphChart = echarts.init(document.getElementById("graph"+ sysDataRecordsIds[i]));
+            var graphChart = echarts.init(document.getElementById("graph" + sysDataRecordsIds[i]));
             var graphData = [];
             var edgeData = [];
             $.ajax({

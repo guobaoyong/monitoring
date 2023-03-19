@@ -1,6 +1,7 @@
 package com.monitoring.web.controller.system;
 
 import java.util.List;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,14 +22,12 @@ import com.monitoring.common.core.page.TableDataInfo;
 
 /**
  * 预测详情Controller
- * 
-
+ *
  * @date 2023-03-17
  */
 @Controller
 @RequestMapping("/system/detail")
-public class SysPredictDetailController extends BaseController
-{
+public class SysPredictDetailController extends BaseController {
     private String prefix = "system/detail";
 
     @Autowired
@@ -36,8 +35,7 @@ public class SysPredictDetailController extends BaseController
 
     @RequiresPermissions("system:detail:view")
     @GetMapping()
-    public String detail()
-    {
+    public String detail() {
         return prefix + "/detail";
     }
 
@@ -47,8 +45,7 @@ public class SysPredictDetailController extends BaseController
     @RequiresPermissions("system:detail:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(SysPredictDetail sysPredictDetail)
-    {
+    public TableDataInfo list(SysPredictDetail sysPredictDetail) {
         startPage();
         List<SysPredictDetail> list = sysPredictDetailService.selectSysPredictDetailList(sysPredictDetail);
         return getDataTable(list);
@@ -61,8 +58,7 @@ public class SysPredictDetailController extends BaseController
     @Log(title = "预测详情", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SysPredictDetail sysPredictDetail)
-    {
+    public AjaxResult export(SysPredictDetail sysPredictDetail) {
         List<SysPredictDetail> list = sysPredictDetailService.selectSysPredictDetailList(sysPredictDetail);
         ExcelUtil<SysPredictDetail> util = new ExcelUtil<SysPredictDetail>(SysPredictDetail.class);
         return util.exportExcel(list, "预测详情数据");
@@ -72,8 +68,7 @@ public class SysPredictDetailController extends BaseController
      * 新增预测详情
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -84,8 +79,7 @@ public class SysPredictDetailController extends BaseController
     @Log(title = "预测详情", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysPredictDetail sysPredictDetail)
-    {
+    public AjaxResult addSave(SysPredictDetail sysPredictDetail) {
         return toAjax(sysPredictDetailService.insertSysPredictDetail(sysPredictDetail));
     }
 
@@ -94,8 +88,7 @@ public class SysPredictDetailController extends BaseController
      */
     @RequiresPermissions("system:detail:edit")
     @GetMapping("/edit/{detailId}")
-    public String edit(@PathVariable("detailId") Long detailId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("detailId") Long detailId, ModelMap mmap) {
         SysPredictDetail sysPredictDetail = sysPredictDetailService.selectSysPredictDetailByDetailId(detailId);
         mmap.put("sysPredictDetail", sysPredictDetail);
         return prefix + "/edit";
@@ -108,8 +101,7 @@ public class SysPredictDetailController extends BaseController
     @Log(title = "预测详情", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysPredictDetail sysPredictDetail)
-    {
+    public AjaxResult editSave(SysPredictDetail sysPredictDetail) {
         return toAjax(sysPredictDetailService.updateSysPredictDetail(sysPredictDetail));
     }
 
@@ -118,10 +110,9 @@ public class SysPredictDetailController extends BaseController
      */
     @RequiresPermissions("system:detail:remove")
     @Log(title = "预测详情", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(sysPredictDetailService.deleteSysPredictDetailByDetailIds(ids));
     }
 }

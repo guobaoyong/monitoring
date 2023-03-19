@@ -88,7 +88,9 @@
                         <tbody>
                         <tr th:each="sysNotice : ${sysNotices}">
                             <td><small th:text="${sysNotice.getStatus() == '0' ? '正常' : '异常'}"></small></td>
-                            <td><span th:text="${sysNotice.getNoticeType() == '1' ? '执行记录' : (sysNotice.getNoticeType() == '2' ? '事前预警' : '事后预警')}"></span></td>
+                            <td><span
+                                    th:text="${sysNotice.getNoticeType() == '1' ? '执行记录' : (sysNotice.getNoticeType() == '2' ? '事前预警' : '事后预警')}"></span>
+                            </td>
                             <td class="text-navy">
                                 <i class="fa fa-level-up"></i><span th:text="${sysNotice.getNoticeContent()}"></span>
                             </td>

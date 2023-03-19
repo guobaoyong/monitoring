@@ -165,7 +165,7 @@ public class SysPredictController extends BaseController {
     @RequiresPermissions("system:predict:figure")
     @PostMapping("/predictIdData")
     @ResponseBody
-    public AjaxResult predictIdData(SysPredict sysPredict,String type) {
+    public AjaxResult predictIdData(SysPredict sysPredict, String type) {
         // 根据预测ID和预测日期拿到明日的数据
         SysPredictDetail sysPredictDetail = new SysPredictDetail();
         sysPredictDetail.setPredictId(sysPredict.getPredictId());

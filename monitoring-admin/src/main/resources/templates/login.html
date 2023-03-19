@@ -15,9 +15,15 @@
     <!-- 避免IE使用兼容模式 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{favicon.ico}"/>
-    <style type="text/css">label.error { position:inherit;  }</style>
+    <style type="text/css">label.error {
+        position: inherit;
+    }</style>
     <script>
-        if(window.top!==window.self){alert('未登录或登录超时。请重新登录');window.top.location=window.location};
+        if (window.top !== window.self) {
+            alert('未登录或登录超时。请重新登录');
+            window.top.location = window.location
+        }
+        ;
     </script>
 </head>
 <body class="signin">
@@ -41,11 +47,12 @@
         <div class="col-sm-5">
             <form id="signupForm" autocomplete="off">
                 <h4 class="no-margins">登录：</h4>
-                <input type="text"     name="username" class="form-control uname"     placeholder="用户名" value=""    />
-                <input type="password" name="password" class="form-control pword"     placeholder="密码"   value="" />
+                <input type="text" name="username" class="form-control uname" placeholder="用户名" value=""/>
+                <input type="password" name="password" class="form-control pword" placeholder="密码" value=""/>
                 <div class="row m-t" th:if="${captchaEnabled==true}">
                     <div class="col-xs-6">
-                        <input type="text" name="validateCode" class="form-control code" placeholder="验证码" maxlength="5" />
+                        <input type="text" name="validateCode" class="form-control code" placeholder="验证码"
+                               maxlength="5"/>
                     </div>
                     <div class="col-xs-6">
                         <a href="javascript:void(0);" title="点击更换验证码">
@@ -67,10 +74,12 @@
     </div>
 </div>
 <script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
-<!--[if lte IE 8]><script>window.location.href=ctx+'html/ie.html';</script><![endif]-->
+<!--[if lte IE 8]>
+<script>window.location.href = ctx + 'html/ie.html';</script><![endif]-->
 <!-- 全局js -->
 <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
-<script src="../static/ajax/libs/validate/jquery.validate.min.js" th:src="@{/ajax/libs/validate/jquery.validate.min.js}"></script>
+<script src="../static/ajax/libs/validate/jquery.validate.min.js"
+        th:src="@{/ajax/libs/validate/jquery.validate.min.js}"></script>
 <script src="../static/ajax/libs/layer/layer.min.js" th:src="@{/ajax/libs/layer/layer.min.js}"></script>
 <script src="../static/ajax/libs/blockUI/jquery.blockUI.js" th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
 <script src="../static/ruoyi/js/ry-ui.js" th:src="@{/ruoyi/js/ry-ui.js?v=4.7.5}"></script>

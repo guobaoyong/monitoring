@@ -2,11 +2,9 @@ package com.monitoring.common.constant;
 
 /**
  * Shiro通用常量
- * 
-
  */
-public class ShiroConstants
-{
+public class ShiroConstants {
+
     /**
      * 当前登录的用户
      */

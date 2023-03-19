@@ -23,11 +23,10 @@ import com.monitoring.framework.web.service.ConfigService;
 
 /**
  * 登录验证
- *
-
  */
 @Controller
 public class SysLoginController extends BaseController {
+
     /**
      * 是否开启记住我功能
      */
@@ -44,10 +43,10 @@ public class SysLoginController extends BaseController {
             return ServletUtils.renderString(response, "{\"code\":\"1\",\"msg\":\"未登录或登录超时。请重新登录\"}");
         }
         // 是否开启记住我
-        mmap.put("isRemembered" , rememberMe);
+        mmap.put("isRemembered", rememberMe);
         // 是否开启用户注册
-        mmap.put("isAllowRegister" , Convert.toBool(configService.getKey("sys.account.registerUser"), false));
-        return "login" ;
+        mmap.put("isAllowRegister", Convert.toBool(configService.getKey("sys.account.registerUser"), false));
+        return "login";
     }
 
     @PostMapping("/login")
@@ -59,7 +58,7 @@ public class SysLoginController extends BaseController {
             subject.login(token);
             return success();
         } catch (AuthenticationException e) {
-            String msg = "用户或密码错误" ;
+            String msg = "用户或密码错误";
             if (StringUtils.isNotEmpty(e.getMessage())) {
                 msg = e.getMessage();
             }
@@ -69,6 +68,6 @@ public class SysLoginController extends BaseController {
 
     @GetMapping("/unauth")
     public String unauth() {
-        return "error/unauth" ;
+        return "error/unauth";
     }
 }

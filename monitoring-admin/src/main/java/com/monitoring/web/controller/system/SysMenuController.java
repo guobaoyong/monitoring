@@ -25,12 +25,11 @@ import com.monitoring.system.service.ISysMenuService;
 
 /**
  * 菜单信息
- *
-
  */
 @Controller
 @RequestMapping("/system/menu")
 public class SysMenuController extends BaseController {
+
     private String prefix = "system/menu";
 
     @Autowired

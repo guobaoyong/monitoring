@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -15,11 +15,13 @@
     <!-- 避免IE使用兼容模式 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{favicon.ico}"/>
-    <style type="text/css">label.error { position:inherit;  }</style>
+    <style type="text/css">label.error {
+        position: inherit;
+    }</style>
     <style>
         .SelectMode {
             FONT-SIZE: 12px;
-            FONT-FAMILY: "宋体","Verdana";
+            FONT-FAMILY: "宋体", "Verdana";
             BACKGROUND-COLOR: #FFFFFF;
             z-index: -1;
             color: #003366;
@@ -55,12 +57,14 @@
                     <option value="">请选择一个岗位</option>
                     <option th:value="${post.postId}" th:text="${post.postName}" th:each="post:${posts}"></option>
                 </select>
-                <input type="text"     name="username" class="form-control uname"         placeholder="用户名"   maxlength="20" />
-                <input type="password" name="password" class="form-control pword"         placeholder="密码"     maxlength="20" />
-                <input type="password" name="confirmPassword" class="form-control pword"  placeholder="确认密码" maxlength="20" />
+                <input type="text" name="username" class="form-control uname" placeholder="用户名" maxlength="20"/>
+                <input type="password" name="password" class="form-control pword" placeholder="密码" maxlength="20"/>
+                <input type="password" name="confirmPassword" class="form-control pword" placeholder="确认密码"
+                       maxlength="20"/>
                 <div class="row m-t" th:if="${captchaEnabled==true}">
                     <div class="col-xs-6">
-                        <input type="text" name="validateCode" class="form-control code"  placeholder="验证码"   maxlength="5" >
+                        <input type="text" name="validateCode" class="form-control code" placeholder="验证码"
+                               maxlength="5">
                     </div>
                     <div class="col-xs-6">
                         <a href="javascript:void(0);" title="点击更换验证码">
@@ -85,7 +89,8 @@
 <script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
 <!-- 全局js -->
 <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
-<script src="../static/ajax/libs/validate/jquery.validate.min.js" th:src="@{/ajax/libs/validate/jquery.validate.min.js}"></script>
+<script src="../static/ajax/libs/validate/jquery.validate.min.js"
+        th:src="@{/ajax/libs/validate/jquery.validate.min.js}"></script>
 <script src="../static/ajax/libs/layer/layer.min.js" th:src="@{/ajax/libs/layer/layer.min.js}"></script>
 <script src="../static/ajax/libs/blockUI/jquery.blockUI.js" th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
 <script src="../static/ruoyi/js/ry-ui.js" th:src="@{/ruoyi/js/ry-ui.js?v=4.7.5}"></script>

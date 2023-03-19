@@ -152,11 +152,11 @@
 
     /* 提交覆盖优化任务 */
     function task() {
-        if (dataId.length != 0){
-            $.modal.confirm("确认要将此覆盖优化任务提交吗？", function() {
-                $.operate.post(prefix + "/task", { "dataId": dataId});
+        if (dataId.length != 0) {
+            $.modal.confirm("确认要将此覆盖优化任务提交吗？", function () {
+                $.operate.post(prefix + "/task", {"dataId": dataId});
             })
-        }else {
+        } else {
             $.modal.alertWarning("无权操作！");
         }
     }

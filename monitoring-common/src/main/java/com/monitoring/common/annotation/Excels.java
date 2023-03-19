@@ -7,12 +7,10 @@ import java.lang.annotation.Target;
 
 /**
  * Excel注解集
- * 
-
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Excels
-{
+public @interface Excels {
+
     Excel[] value();
 }
