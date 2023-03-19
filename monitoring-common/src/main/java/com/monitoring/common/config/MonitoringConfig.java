@@ -27,11 +27,6 @@ public class MonitoringConfig {
     private static String copyrightYear;
 
     /**
-     * 实例演示开关
-     */
-    private static boolean demoEnabled;
-
-    /**
      * 上传路径
      */
     private static String profile;
@@ -63,14 +58,6 @@ public class MonitoringConfig {
 
     public void setCopyrightYear(String copyrightYear) {
         MonitoringConfig.copyrightYear = copyrightYear;
-    }
-
-    public static boolean isDemoEnabled() {
-        return demoEnabled;
-    }
-
-    public void setDemoEnabled(boolean demoEnabled) {
-        MonitoringConfig.demoEnabled = demoEnabled;
     }
 
     public static String getProfile() {

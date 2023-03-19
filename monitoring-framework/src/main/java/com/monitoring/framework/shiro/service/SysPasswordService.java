@@ -2,6 +2,8 @@ package com.monitoring.framework.shiro.service;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.PostConstruct;
+
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -82,4 +84,5 @@ public class SysPasswordService
     {
         return new Md5Hash(loginName + password + salt).toHex();
     }
+
 }

@@ -109,15 +109,19 @@ public class PredictTask {
                         }
                         predictDetailService.insertSysPredictDetail(sysPredictDetail);
                         // 是否需要事前预警
-                        if (Double.valueOf(sysPredictDetail.getPredictValue()) >= Double.valueOf(sensors.getEarlyWarning())) {
-                            // 写入事前预警信息
-                            record.set(StrUtil.format("ID为{}的{}传感器，经预测，将于{}达到{}，可能超过预警值，请及时关注！", sensors.getSensorsId(), sensors.getType().equals("temperature") ? "温度" : "湿度", sysPredictDetail.getPredictDay(), sysPredictDetail.getPredictValue()));
-                            notice.setNoticeTitle("事前预警记录");
-                            notice.setCreateBy("admin");
-                            notice.setNoticeType("2");
-                            notice.setStatus("1");
-                            notice.setNoticeContent(record.get());
-                            sysNoticeService.insertNotice(notice);
+                        try {
+                            if (Double.valueOf(sysPredictDetail.getPredictValue()) >= Double.valueOf(sensors.getEarlyWarning())) {
+                                // 写入事前预警信息
+                                record.set(StrUtil.format("ID为{}的{}传感器，经预测，将于{}达到{}，可能超过预警值，请及时关注！", sensors.getSensorsId(), sensors.getType().equals("temperature") ? "温度" : "湿度", sysPredictDetail.getPredictDay(), sysPredictDetail.getPredictValue()));
+                                notice.setNoticeTitle("事前预警记录");
+                                notice.setCreateBy("admin");
+                                notice.setNoticeType("2");
+                                notice.setStatus("1");
+                                notice.setNoticeContent(record.get());
+                                sysNoticeService.insertNotice(notice);
+                            }
+                        } catch (Exception exception) {
+                            // 遇到无法比对的数据，进行跳过
                         }
                     }
                 }
