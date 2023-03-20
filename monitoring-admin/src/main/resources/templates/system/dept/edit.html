@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('修改院系')"/>
+    <th:block th:include="include :: header('修改部门')"/>
 </head>
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
@@ -9,7 +9,7 @@
         <input name="deptId" type="hidden" th:field="*{deptId}"/>
         <input id="treeId" name="parentId" type="hidden" th:field="*{parentId}"/>
         <div class="form-group">
-            <label class="col-sm-3 control-label">上级院系：</label>
+            <label class="col-sm-3 control-label">上级部门：</label>
             <div class="col-sm-8">
                 <div class="input-group">
                     <input class="form-control" type="text" id="treeName" onclick="selectDeptTree()" readonly="true"
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label is-required">院系名称：</label>
+            <label class="col-sm-3 control-label is-required">部门名称：</label>
             <div class="col-sm-8">
                 <input class="form-control" type="text" name="deptName" th:field="*{deptName}" id="deptName" required>
             </div>
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">院系状态：</label>
+            <label class="col-sm-3 control-label">部门状态：</label>
             <div class="col-sm-8">
                 <div class="radio-box" th:each="dict : ${@dict.getType('sys_normal_disable')}">
                     <input type="radio" th:id="${dict.dictCode}" name="status" th:value="${dict.dictValue}"
@@ -97,7 +97,7 @@
         },
         messages: {
             "deptName": {
-                remote: "院系已经存在"
+                remote: "部门已经存在"
             }
         },
         focusCleanup: true
@@ -109,20 +109,20 @@
         }
     }
 
-    /*院系管理-修改-选择院系树*/
+    /*部门管理-修改-选择部门树*/
     function selectDeptTree() {
         var deptId = $("#treeId").val();
         var excludeId = $("input[name='deptId']").val();
         if (deptId > 0) {
             var options = {
-                title: '院系选择',
+                title: '部门选择',
                 width: "380",
                 url: prefix + "/selectDeptTree/" + $("#treeId").val() + "/" + excludeId,
                 callBack: doSubmit
             };
             $.modal.openOptions(options);
         } else {
-            $.modal.alertError("父院系不能选择");
+            $.modal.alertError("父部门不能选择");
         }
     }
 

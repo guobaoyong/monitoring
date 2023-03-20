@@ -31,12 +31,12 @@ public class UserConstants {
     public static final String ROLE_DISABLE = "1";
 
     /**
-     * 院系正常状态
+     * 部门正常状态
      */
     public static final String DEPT_NORMAL = "0";
 
     /**
-     * 院系停用状态
+     * 部门停用状态
      */
     public static final String DEPT_DISABLE = "1";
 

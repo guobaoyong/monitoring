@@ -11,19 +11,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.monitoring.common.core.domain.BaseEntity;
 
 /**
- * 院系表 sys_dept
+ * 部门表 sys_dept
  */
 public class SysDept extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 院系ID
+     * 部门ID
      */
     private Long deptId;
 
     /**
-     * 父院系ID
+     * 父部门ID
      */
     private Long parentId;
 
@@ -33,7 +33,7 @@ public class SysDept extends BaseEntity {
     private String ancestors;
 
     /**
-     * 院系名称
+     * 部门名称
      */
     private String deptName;
 
@@ -58,7 +58,7 @@ public class SysDept extends BaseEntity {
     private String email;
 
     /**
-     * 院系状态:0正常,1停用
+     * 部门状态:0正常,1停用
      */
     private String status;
 
@@ -68,7 +68,7 @@ public class SysDept extends BaseEntity {
     private String delFlag;
 
     /**
-     * 父院系名称
+     * 父部门名称
      */
     private String parentName;
 
@@ -101,8 +101,8 @@ public class SysDept extends BaseEntity {
         this.ancestors = ancestors;
     }
 
-    @NotBlank(message = "院系名称不能为空")
-    @Size(min = 0, max = 30, message = "院系名称长度不能超过30个字符")
+    @NotBlank(message = "部门名称不能为空")
+    @Size(min = 0, max = 30, message = "部门名称长度不能超过30个字符")
     public String getDeptName() {
         return deptName;
     }

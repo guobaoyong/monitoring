@@ -41,7 +41,7 @@ public class SysRegisterController extends BaseController {
     @GetMapping("/register")
     public ModelAndView register() {
         ModelAndView modelAndView = new ModelAndView("register");
-        // 放入院系
+        // 放入部门
         modelAndView.addObject("depts", depts());
         // 放入岗位
         modelAndView.addObject("posts", postService.selectPostAll());
@@ -59,7 +59,7 @@ public class SysRegisterController extends BaseController {
     }
 
     /**
-     * 获取顶层所有院系
+     * 获取顶层所有部门
      */
     public List<SysDept> depts() {
         SysDept dept = new SysDept();

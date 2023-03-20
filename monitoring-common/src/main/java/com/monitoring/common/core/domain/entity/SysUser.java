@@ -28,13 +28,13 @@ public class SysUser extends BaseEntity {
     private Long userId;
 
     /**
-     * 院系ID
+     * 部门ID
      */
-    @Excel(name = "院系编号", type = Type.IMPORT)
+    @Excel(name = "部门编号", type = Type.IMPORT)
     private Long deptId;
 
     /**
-     * 院系父ID
+     * 部门父ID
      */
     private Long parentId;
 
@@ -122,11 +122,11 @@ public class SysUser extends BaseEntity {
     private Date pwdUpdateDate;
 
     /**
-     * 院系对象
+     * 部门对象
      */
     @Excels({
-            @Excel(name = "院系名称", targetAttr = "deptName", type = Type.EXPORT),
-            @Excel(name = "院系负责人", targetAttr = "leader", type = Type.EXPORT)
+            @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
+            @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
     })
     private SysDept dept;
 

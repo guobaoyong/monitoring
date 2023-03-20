@@ -50,7 +50,7 @@
             <form id="registerForm" autocomplete="off">
                 <h4 class="no-margins">注册：</h4>
                 <select id="deptId" class="form-control SelectMode">
-                    <option value="">请选择一个院系</option>
+                    <option value="">请选择一个部门</option>
                     <option th:value="${dept.deptId}" th:text="${dept.deptName}" th:each="dept:${depts}"></option>
                 </select>
                 <select id="postId" class="form-control SelectMode">

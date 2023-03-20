@@ -35,12 +35,12 @@ public class DataScopeAspect
     public static final String DATA_SCOPE_CUSTOM = "2";
 
     /**
-     * 院系数据权限
+     * 部门数据权限
      */
     public static final String DATA_SCOPE_DEPT = "3";
 
     /**
-     * 院系及以下数据权限
+     * 部门及以下数据权限
      */
     public static final String DATA_SCOPE_DEPT_AND_CHILD = "4";
 
@@ -82,7 +82,7 @@ public class DataScopeAspect
      * 
      * @param joinPoint 切点
      * @param user 用户
-     * @param deptAlias 院系别名
+     * @param deptAlias 部门别名
      * @param userAlias 用户别名
      * @param permission 权限字符
      */
