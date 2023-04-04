@@ -15,14 +15,24 @@
         </div>
     </div>
     <div class="row" th:each="sysSensor:${sysSensors}">
-        <div class="col-sm-12">
+        <div class="col-sm-8">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>传感器ID为<span th:text="${sysSensor.sensorsId}"></span>的<span th:text="${sysSensor.type}"></span>采集数据
+                    <h5>传感器ID为<span th:text="${sysSensor.sensorsId}"></span>的<span th:text="${sysSensor.type}"></span>采集数据，预警值：<span th:text="${sysSensor.earlyWarning}"></span>
                     </h5>
                 </div>
                 <div class="ibox-content">
                     <div class="echarts" th:id="'line'+ ${sysSensor.sensorsId}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>数据分布情况</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" th:id="'pie'+ ${sysSensor.sensorsId}"></div>
                 </div>
             </div>
         </div>
@@ -34,14 +44,11 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
 <script th:inline="javascript">
     var prefix = ctx + "system/data";
-
     var sysSensorsIds = [[${sysSensorsIds}]];
-
-    console.log(sysSensorsIds);
 
     $(function () {
         for (let i = 0; i < sysSensorsIds.length; i++) {
-            // 初始位置分布
+            // 采集数据
             var lineChart = echarts.init(document.getElementById("line" + sysSensorsIds[i]));
             var xData = [];
             var yData = [];
@@ -109,6 +116,57 @@
             };
             lineChart.setOption(lineoption);
             $(window).resize(lineChart.resize);
+
+            var pieChart = echarts.init(document.getElementById("pie" + sysSensorsIds[i]));
+            var normal = 0;
+            var abnormal = 0;
+            $.ajax({
+                url: prefix + "/statisticsData",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    sensorId: sysSensorsIds[i]
+                },
+                async: false,
+                success: function (result) {
+                    normal = result.data.normal;
+                    abnormal = result.data.abnormal;
+                }
+            });
+            var pieOption = {
+                title: {
+                    text: '采集数据共' + yData.length + '条',
+                    subtext: '统计',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left'
+                },
+                series: [
+                    {
+                        name: '传感器' + sysSensorsIds[i] + '数据',
+                        type: 'pie',
+                        radius: '50%',
+                        data: [
+                            {value: normal, name: '正常'},
+                            {value: abnormal, name: '异常'},
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            pieChart.setOption(pieOption);
+            $(window).resize(pieChart.resize);
         }
     });
 </script>

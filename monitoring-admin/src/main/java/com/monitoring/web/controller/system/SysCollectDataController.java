@@ -1,7 +1,9 @@
 package com.monitoring.web.controller.system;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import cn.hutool.core.date.DateUtil;
 import com.monitoring.system.domain.*;
@@ -164,5 +166,32 @@ public class SysCollectDataController extends BaseController {
             }
         });
         return AjaxResult.success(list);
+    }
+
+    /**
+     * 统计采集数据
+     */
+    @RequiresPermissions("system:data:figure")
+    @PostMapping("/statisticsData")
+    @ResponseBody
+    public AjaxResult statisticsData(SysCollectData collectData) {
+        SysSensors sensors = sysSensorsService.selectSysSensorsBySensorsId(collectData.getSensorId());
+        collectData.setCollectTime(DateUtil.date());
+        List<SysCollectData> sysCollectData = sysCollectDataService.selectSysCollectDataList(collectData);
+        Double earlyWarning = Double.valueOf(sensors.getEarlyWarning());
+        AtomicInteger normal = new AtomicInteger();
+        AtomicInteger abnormal = new AtomicInteger();
+        sysCollectData.forEach(collect -> {
+            Double value = Double.valueOf(sensors.getType().equals("temperature") ? collect.getTemperature() : collect.getHumidity());
+            if (value >= earlyWarning) {
+                abnormal.getAndIncrement();
+            } else {
+                normal.getAndIncrement();
+            }
+        });
+        HashMap<String,Integer> result = new HashMap<>();
+        result.put("normal",normal.get());
+        result.put("abnormal",abnormal.get());
+        return AjaxResult.success(result);
     }
 }
