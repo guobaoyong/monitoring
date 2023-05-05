@@ -1,29 +1,26 @@
 package com.monitoring.web.controller.system;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import cn.hutool.core.date.DateUtil;
-import com.monitoring.system.domain.*;
+import com.monitoring.common.annotation.Log;
+import com.monitoring.common.core.controller.BaseController;
+import com.monitoring.common.core.domain.AjaxResult;
+import com.monitoring.common.core.page.TableDataInfo;
+import com.monitoring.common.enums.BusinessType;
+import com.monitoring.common.utils.poi.ExcelUtil;
+import com.monitoring.system.domain.SysCollectData;
+import com.monitoring.system.domain.SysSensors;
+import com.monitoring.system.service.ISysCollectDataService;
 import com.monitoring.system.service.ISysSensorsService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.monitoring.common.annotation.Log;
-import com.monitoring.common.enums.BusinessType;
-import com.monitoring.system.service.ISysCollectDataService;
-import com.monitoring.common.core.controller.BaseController;
-import com.monitoring.common.core.domain.AjaxResult;
-import com.monitoring.common.utils.poi.ExcelUtil;
-import com.monitoring.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 采集记录Controller
