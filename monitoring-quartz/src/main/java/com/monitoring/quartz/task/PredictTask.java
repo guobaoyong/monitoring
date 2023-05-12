@@ -50,6 +50,18 @@ public class PredictTask {
             HashMap<String, Object> paramMap = new HashMap<>();
             paramMap.put("sensors_id", sensors.getSensorsId());
             paramMap.put("type", sensors.getType());
+            String type = "";
+            switch (sensors.getType()) {
+                case "temperature":
+                    type = "温度";
+                    break;
+                case "humidity":
+                    type = "湿度";
+                    break;
+                case "light":
+                    type = "光照";
+                    break;
+            }
             String result = HttpRequest.get(address)
                     .header(Header.USER_AGENT, "Hutool http")
                     .form(paramMap)//表单内容
@@ -66,7 +78,7 @@ public class PredictTask {
             DateTime end = DateUtil.nextMonth();
             // 生成执行记录
             SysNotice notice = new SysNotice();
-            AtomicReference<String> record = new AtomicReference<>(StrUtil.format("ID为{}的{}传感器，于{}开始执行数据预测任务，{}结束，耗时：{}秒，执行状态：{}", sensors.getSensorsId(), sensors.getType().equals("temperature") ? "温度" : "湿度", start, end, DateUtil.between(start, end, DateUnit.SECOND), flag));
+            AtomicReference<String> record = new AtomicReference<>(StrUtil.format("ID为{}的{}传感器，于{}开始执行数据预测任务，{}结束，耗时：{}秒，执行状态：{}", sensors.getSensorsId(), type, start, end, DateUtil.between(start, end, DateUnit.SECOND), flag));
             notice.setNoticeTitle("预测执行过程记录");
             notice.setCreateBy("admin");
             // 执行记录
@@ -80,6 +92,7 @@ public class PredictTask {
             sysPredict.setPredictDay(tomorrow);
             sysPredict.setSensorId(sensors.getSensorsId());
             List<SysPredict> sysPredicts = sysPredictService.selectSysPredictList(sysPredict);
+            String finalType = type;
             sysPredicts.forEach(predict -> {
                 // 获取预测数据
                 JSONArray jsonArray = JSONArray.parseArray(predict.getPredictCurve());
@@ -112,7 +125,7 @@ public class PredictTask {
                         try {
                             if (Double.valueOf(sysPredictDetail.getPredictValue()) >= Double.valueOf(sensors.getEarlyWarning())) {
                                 // 写入事前预警信息
-                                record.set(StrUtil.format("ID为{}的{}传感器，经预测，将于{}达到{}，可能超过预警值，请及时关注！", sensors.getSensorsId(), sensors.getType().equals("temperature") ? "温度" : "湿度", sysPredictDetail.getPredictDay(), sysPredictDetail.getPredictValue()));
+                                record.set(StrUtil.format("ID为{}的{}传感器，经预测，将于{}达到{}，可能超过预警值，请及时关注！", sensors.getSensorsId(), finalType, sysPredictDetail.getPredictDay(), sysPredictDetail.getPredictValue()));
                                 notice.setNoticeTitle("事前预警记录");
                                 notice.setCreateBy("admin");
                                 notice.setNoticeType("2");

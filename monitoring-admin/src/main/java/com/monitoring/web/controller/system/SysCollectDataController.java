@@ -135,6 +135,8 @@ public class SysCollectDataController extends BaseController {
                 sensor.setType("温度传感器");
             } else if (sensor.getType().equals("humidity")) {
                 sensor.setType("湿度传感器");
+            } else if (sensor.getType().equals("light")) {
+                sensor.setType("光照传感器");
             }
             sysSensorsIds.add(sensor.getSensorsId());
         });
@@ -159,7 +161,17 @@ public class SysCollectDataController extends BaseController {
             if (type.equals("x")) {
                 list.add(collect.getCollectTime());
             } else if (type.equals("y")) {
-                list.add(sensors.getType().equals("temperature") ? collect.getTemperature() : collect.getHumidity());
+                switch (sensors.getType()) {
+                    case "temperature":
+                        list.add(collect.getTemperature());
+                        break;
+                    case "humidity":
+                        list.add(collect.getHumidity());
+                        break;
+                    case "light":
+                        list.add(collect.getLight());
+                        break;
+                }
             }
         });
         return AjaxResult.success(list);
@@ -179,16 +191,27 @@ public class SysCollectDataController extends BaseController {
         AtomicInteger normal = new AtomicInteger();
         AtomicInteger abnormal = new AtomicInteger();
         sysCollectData.forEach(collect -> {
-            Double value = Double.valueOf(sensors.getType().equals("temperature") ? collect.getTemperature() : collect.getHumidity());
+            Double value = 0.0;
+            switch (sensors.getType()){
+                case "temperature":
+                    value = Double.valueOf(collect.getTemperature());
+                    break;
+                case "humidity":
+                    value = Double.valueOf(collect.getHumidity());
+                    break;
+                case "light":
+                    value = Double.valueOf(collect.getLight());
+                    break;
+            }
             if (value >= earlyWarning) {
                 abnormal.getAndIncrement();
             } else {
                 normal.getAndIncrement();
             }
         });
-        HashMap<String,Integer> result = new HashMap<>();
-        result.put("normal",normal.get());
-        result.put("abnormal",abnormal.get());
+        HashMap<String, Integer> result = new HashMap<>();
+        result.put("normal", normal.get());
+        result.put("abnormal", abnormal.get());
         return AjaxResult.success(result);
     }
 }

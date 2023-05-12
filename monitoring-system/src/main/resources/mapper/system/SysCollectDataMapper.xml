@@ -14,13 +14,14 @@
         <result property="sensorId"    column="sensor_id"    />
         <result property="temperature"    column="temperature"    />
         <result property="humidity"    column="humidity"    />
+        <result property="light"    column="light"    />
         <result property="collectTime"    column="collect_time"    />
         <result property="abnormal"    column="abnormal"    />
         <result property="earlyWarning"    column="early_warning"    />
     </resultMap>
 
     <sql id="selectSysCollectDataVo">
-        select collect_id, create_by, create_time, update_by, update_time, remark, sensor_id, temperature, humidity, collect_time, abnormal, early_warning from sys_collect_data
+        select collect_id, create_by, create_time, update_by, update_time, remark, sensor_id, temperature, humidity, light, collect_time, abnormal, early_warning from sys_collect_data
     </sql>
 
     <select id="selectSysCollectDataList" parameterType="SysCollectData" resultMap="SysCollectDataResult">
@@ -29,6 +30,7 @@
             <if test="sensorId != null "> and sensor_id = #{sensorId}</if>
             <if test="temperature != null  and temperature != ''"> and temperature = #{temperature}</if>
             <if test="humidity != null  and humidity != ''"> and humidity = #{humidity}</if>
+            <if test="light != null  and light != ''"> and light = #{light}</if>
             <if test="collectTime != null "> and collect_time like concat('%', date_format(#{collectTime}, '%Y-%m-%d' ), '%')</if>
             <if test="abnormal != null  and abnormal != ''"> and abnormal = #{abnormal}</if>
             <if test="earlyWarning != null  and earlyWarning != ''"> and early_warning = #{earlyWarning}</if>
@@ -51,6 +53,7 @@
             <if test="sensorId != null">sensor_id,</if>
             <if test="temperature != null">temperature,</if>
             <if test="humidity != null">humidity,</if>
+            <if test="light != null">light,</if>
             <if test="collectTime != null">collect_time,</if>
             <if test="abnormal != null">abnormal,</if>
             <if test="earlyWarning != null">early_warning,</if>
@@ -64,6 +67,7 @@
             <if test="sensorId != null">#{sensorId},</if>
             <if test="temperature != null">#{temperature},</if>
             <if test="humidity != null">#{humidity},</if>
+            <if test="light != null">#{light},</if>
             <if test="collectTime != null">#{collectTime},</if>
             <if test="abnormal != null">#{abnormal},</if>
             <if test="earlyWarning != null">#{earlyWarning},</if>
@@ -81,6 +85,7 @@
             <if test="sensorId != null">sensor_id = #{sensorId},</if>
             <if test="temperature != null">temperature = #{temperature},</if>
             <if test="humidity != null">humidity = #{humidity},</if>
+            <if test="light != null">light = #{light},</if>
             <if test="collectTime != null">collect_time = #{collectTime},</if>
             <if test="abnormal != null">abnormal = #{abnormal},</if>
             <if test="earlyWarning != null">early_warning = #{earlyWarning},</if>

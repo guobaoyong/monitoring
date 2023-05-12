@@ -33,10 +33,16 @@ public class AfterWarningTask {
         sysCollectData.forEach(collectData -> {
             SysSensors sysSensors = sysSensorsService.selectSysSensorsBySensorsId(collectData.getSensorId());
             Double dataValue = 0.0;
+            String type = "";
             if (sysSensors.getType().equals("temperature")) {
                 dataValue = Double.valueOf(collectData.getTemperature());
+                type = "温度";
             } else if (sysSensors.getType().equals("humidity")) {
                 dataValue = Double.valueOf(collectData.getHumidity());
+                type = "湿度";
+            } else if (sysSensors.getType().equals("light")) {
+                dataValue = Double.valueOf(collectData.getLight());
+                type = "光照";
             }
             if (dataValue >= Double.valueOf(sysSensors.getEarlyWarning())) {
                 collectData.setAbnormal("0");
@@ -44,7 +50,7 @@ public class AfterWarningTask {
                 // 插入预警记录表
                 SysNotice notice = new SysNotice();
                 notice.setNoticeTitle("事后预警记录");
-                notice.setNoticeContent(StrUtil.format("ID为{}的{}传感器，已于{}达到{}，超过预警值，请及时关注！", sysSensors.getSensorsId(), sysSensors.getType().equals("temperature") ? "温度" : "湿度", DateUtil.formatDateTime(collectData.getCollectTime()), dataValue));
+                notice.setNoticeContent(StrUtil.format("ID为{}的{}传感器，已于{}达到{}，超过预警值，请及时关注！", sysSensors.getSensorsId(), type, DateUtil.formatDateTime(collectData.getCollectTime()), dataValue));
                 notice.setCreateBy("admin");
                 notice.setNoticeType("3");
                 notice.setStatus("1");

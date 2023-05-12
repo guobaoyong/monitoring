@@ -1,17 +1,16 @@
 package com.monitoring.system.domain;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.monitoring.common.annotation.Excel;
 import com.monitoring.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.util.Date;
+
 /**
  * 采集记录对象 sys_collect_data
  *
-
  * @date 2023-03-16
  */
 public class SysCollectData extends BaseEntity {
@@ -40,6 +39,12 @@ public class SysCollectData extends BaseEntity {
      */
     @Excel(name = "湿度数据")
     private String humidity;
+
+    /**
+     * 光照数据
+     */
+    @Excel(name = "光照数据")
+    private String light;
 
     /**
      * 采集时间
@@ -92,6 +97,14 @@ public class SysCollectData extends BaseEntity {
         return humidity;
     }
 
+    public void setLight(String light) {
+        this.light = light;
+    }
+
+    public String getLight() {
+        return light;
+    }
+
     public void setCollectTime(Date collectTime) {
         this.collectTime = collectTime;
     }
@@ -119,7 +132,7 @@ public class SysCollectData extends BaseEntity {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("collectId", getCollectId())
                 .append("createBy", getCreateBy())
                 .append("createTime", getCreateTime())
@@ -129,6 +142,7 @@ public class SysCollectData extends BaseEntity {
                 .append("sensorId", getSensorId())
                 .append("temperature", getTemperature())
                 .append("humidity", getHumidity())
+                .append("light", getLight())
                 .append("collectTime", getCollectTime())
                 .append("abnormal", getAbnormal())
                 .append("earlyWarning", getEarlyWarning())

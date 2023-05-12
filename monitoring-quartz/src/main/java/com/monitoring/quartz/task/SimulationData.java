@@ -22,6 +22,9 @@ public class SimulationData {
     @Autowired
     private ISysCollectDataService sysCollectDataService;
 
+    // 超时时间
+    private final int ERROR_TIME = 20000;
+
     public void data() {
         List<SysSensors> sysSensors = sysSensorsService.selectSysSensorsList(null);
         sysSensors.forEach(sensors -> {
@@ -33,16 +36,16 @@ public class SimulationData {
                 // 获取采集地址
                 try {
                     // 获取采集数据
-                    String result = HttpRequest.get(sensors.getIp()).timeout(20000).execute().body();
-                    result = result.replaceAll("Temperature: ","");
-                    result = result.replaceAll("C","");
+                    String result = HttpRequest.get(sensors.getIp()).timeout(ERROR_TIME).execute().body();
+                    result = result.replaceAll("Temperature: ", "");
+                    result = result.replaceAll("C", "");
                     // 写入采集数据
                     sysCollectData.setTemperature(result);
                     if (sensors.getStatus().equals("1")) {
                         sensors.setStatus("0");
                         sysSensorsService.updateSysSensors(sensors);
                     }
-                }catch (Exception e) {
+                } catch (Exception e) {
                     sensors.setStatus("1");
                     sysSensorsService.updateSysSensors(sensors);
                     return;
@@ -51,16 +54,34 @@ public class SimulationData {
                 // 获取采集地址
                 try {
                     // 获取采集数据
-                    String result = HttpRequest.get(sensors.getIp()).timeout(20000).execute().body();
-                    result = result.replaceAll("Humidity: ","");
-                    result = result.replaceAll("%","");
+                    String result = HttpRequest.get(sensors.getIp()).timeout(ERROR_TIME).execute().body();
+                    result = result.replaceAll("Humidity: ", "");
+                    result = result.replaceAll("%", "");
                     // 写入采集数据
                     sysCollectData.setHumidity(result);
                     if (sensors.getStatus().equals("1")) {
                         sensors.setStatus("0");
                         sysSensorsService.updateSysSensors(sensors);
                     }
-                }catch (Exception e) {
+                } catch (Exception e) {
+                    sensors.setStatus("1");
+                    sysSensorsService.updateSysSensors(sensors);
+                    return;
+                }
+            } else if (sensors.getType().equals("light")) {
+                // 获取采集地址
+                try {
+                    // 获取采集数据
+                    String result = HttpRequest.get(sensors.getIp()).timeout(ERROR_TIME).execute().body();
+                    result = result.replaceAll("Light: ", "");
+                    result = result.replaceAll("lx", "");
+                    // 写入采集数据
+                    sysCollectData.setLight(result);
+                    if (sensors.getStatus().equals("1")) {
+                        sensors.setStatus("0");
+                        sysSensorsService.updateSysSensors(sensors);
+                    }
+                } catch (Exception e) {
                     sensors.setStatus("1");
                     sysSensorsService.updateSysSensors(sensors);
                     return;
