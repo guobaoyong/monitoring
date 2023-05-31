@@ -44,7 +44,7 @@ public class PredictTask {
         List<SysSensors> sysSensors = sysSensorsService.selectSysSensorsList(null);
         String address = configService.getKey("sys.predict.address");
         sysSensors.forEach(sensors -> {
-            DateTime start = DateUtil.nextMonth();
+            DateTime start = DateUtil.date();
             // 远程执行数据
             String flag = "正常";
             HashMap<String, Object> paramMap = new HashMap<>();
@@ -75,7 +75,7 @@ public class PredictTask {
             } catch (Exception exception) {
                 flag = "异常";
             }
-            DateTime end = DateUtil.nextMonth();
+            DateTime end = DateUtil.date();
             // 生成执行记录
             SysNotice notice = new SysNotice();
             AtomicReference<String> record = new AtomicReference<>(StrUtil.format("ID为{}的{}传感器，于{}开始执行数据预测任务，{}结束，耗时：{}秒，执行状态：{}", sensors.getSensorsId(), type, start, end, DateUtil.between(start, end, DateUnit.SECOND), flag));
@@ -85,6 +85,7 @@ public class PredictTask {
             notice.setNoticeType("1");
             notice.setStatus(flag.equals("正常") ? "0" : "1");
             notice.setNoticeContent(record.get());
+            notice.setWarningDate(DateUtil.formatDateTime(end));
             sysNoticeService.insertNotice(notice);
             // 生成详细预测数据
             String tomorrow = DateUtil.tomorrow().toDateStr();
@@ -131,6 +132,7 @@ public class PredictTask {
                                 notice.setNoticeType("2");
                                 notice.setStatus("1");
                                 notice.setNoticeContent(record.get());
+                                notice.setWarningDate(sysPredictDetail.getPredictDay());
                                 sysNoticeService.insertNotice(notice);
                             }
                         } catch (Exception exception) {

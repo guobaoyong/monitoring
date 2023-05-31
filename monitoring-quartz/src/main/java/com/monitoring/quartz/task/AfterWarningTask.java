@@ -54,6 +54,7 @@ public class AfterWarningTask {
                 notice.setCreateBy("admin");
                 notice.setNoticeType("3");
                 notice.setStatus("1");
+                notice.setWarningDate(DateUtil.formatDateTime(collectData.getCollectTime()));
                 sysNoticeService.insertNotice(notice);
             } else {
                 collectData.setAbnormal("1");

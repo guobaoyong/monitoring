@@ -1,21 +1,6 @@
 package com.monitoring.web.controller.system;
 
-import java.util.Date;
-import java.util.List;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-
 import cn.hutool.core.date.DateUtil;
-import com.monitoring.framework.web.domain.Server;
-import com.monitoring.system.domain.SysNotice;
-import com.monitoring.system.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.monitoring.common.config.MonitoringConfig;
 import com.monitoring.common.constant.ShiroConstants;
 import com.monitoring.common.core.controller.BaseController;
@@ -28,6 +13,21 @@ import com.monitoring.common.utils.DateUtils;
 import com.monitoring.common.utils.ServletUtils;
 import com.monitoring.common.utils.StringUtils;
 import com.monitoring.framework.shiro.service.SysPasswordService;
+import com.monitoring.framework.web.domain.Server;
+import com.monitoring.system.domain.SysNotice;
+import com.monitoring.system.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 首页 业务处理
@@ -142,7 +142,7 @@ public class SysIndexController extends BaseController {
         mmap.put("server", server);
         // 获取今日预警列表
         SysNotice sysNotice = new SysNotice();
-        sysNotice.setCreateTime(DateUtil.date());
+        sysNotice.setWarningDate(DateUtil.today());
         List<SysNotice> sysNotices = sysNoticeService.selectNoticeList(sysNotice);
         mmap.put("sysNotices", sysNotices);
         return "main_v1";

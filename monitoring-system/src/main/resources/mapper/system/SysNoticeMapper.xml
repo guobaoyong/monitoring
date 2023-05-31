@@ -15,6 +15,7 @@
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
         <result property="remark" column="remark"/>
+        <result property="warningDate" column="warning_date"/>
     </resultMap>
 
     <sql id="selectNoticeVo">
@@ -27,7 +28,8 @@
                create_time,
                update_by,
                update_time,
-               remark
+               remark,
+               warning_date
         from sys_notice
     </sql>
 
@@ -48,7 +50,7 @@
             <if test="createBy != null and createBy != ''">
                 AND create_by like concat('%', #{createBy}, '%')
             </if>
-            <if test="createTime != null ">and create_time like concat('%', date_format(#{createTime}, '%Y-%m-%d' ),
+            <if test="warningDate != null and warningDate != ''">and warning_date like concat('%', date_format(#{warningDate}, '%Y-%m-%d' ),
                 '%')
             </if>
         </where>
@@ -62,6 +64,7 @@
         <if test="status != null and status != '' ">status,</if>
         <if test="remark != null and remark != ''">remark,</if>
         <if test="createBy != null and createBy != ''">create_by,</if>
+        <if test="warningDate != null and warningDate != ''">warning_date,</if>
         create_time
         )values(
         <if test="noticeTitle != null and noticeTitle != ''">#{noticeTitle},</if>
@@ -70,6 +73,7 @@
         <if test="status != null and status != ''">#{status},</if>
         <if test="remark != null and remark != ''">#{remark},</if>
         <if test="createBy != null and createBy != ''">#{createBy},</if>
+        <if test="warningDate != null and warningDate != ''">#{warningDate},</if>
         sysdate()
         )
     </insert>
@@ -82,6 +86,7 @@
             <if test="noticeContent != null">notice_content = #{noticeContent},</if>
             <if test="status != null and status != ''">status = #{status},</if>
             <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="warningDate != null and warningDate != ''">warning_date = #{warningDate},</if>
             update_time = sysdate()
         </set>
         where notice_id = #{noticeId}

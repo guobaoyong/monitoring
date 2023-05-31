@@ -11,8 +11,8 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            <label>创建时间：</label>
-                            <input type="text" class="time-input" placeholder="请选择创建时间" name="createTime"/>
+                            <label>预警时间：</label>
+                            <input type="text" class="time-input" placeholder="请选择预警时间" name="warningDate"/>
                         </li>
                         <li>
                             类型：<select name="noticeType" th:with="type=${@dict.getType('sys_notice_type')}">
@@ -82,6 +82,11 @@
                 {
                     field: 'noticeContent',
                     title: '内容'
+                },
+                {
+                    field: 'warningDate',
+                    title: '预警日期',
+                    sortable: true
                 },
                 {
                     field: 'noticeType',

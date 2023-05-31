@@ -82,7 +82,7 @@
                             <th>状态</th>
                             <th>类型</th>
                             <th>内容</th>
-                            <th>创建时间</th>
+                            <th>预警日期</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -95,7 +95,7 @@
                                 <i class="fa fa-level-up"></i><span th:text="${sysNotice.getNoticeContent()}"></span>
                             </td>
                             <td><i class="fa fa-clock-o"></i><span
-                                    th:text="${#dates.format(sysNotice.getCreateTime(), 'yyyy-MM-dd HH:mm')}"></span>
+                                    th:text="${sysNotice.getWarningDate()}"></span>
                             </td>
                         </tr>
                         </tbody>
