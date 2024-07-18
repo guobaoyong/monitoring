@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.monitoring.system.mapper.SysPredictDetailMapper">
+    
+    <resultMap type="SysPredictDetail" id="SysPredictDetailResult">
+        <result property="detailId"    column="detail_id"    />
+        <result property="predictId"    column="predict_id"    />
+        <result property="predictDay"    column="predict_day"    />
+        <result property="predictValue"    column="predict_value"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysPredictDetailVo">
+        select detail_id, predict_id, predict_day, predict_value, create_by, create_time, update_by, update_time, remark from sys_predict_detail
+    </sql>
+
+    <select id="selectSysPredictDetailList" parameterType="SysPredictDetail" resultMap="SysPredictDetailResult">
+        <include refid="selectSysPredictDetailVo"/>
+        <where>
+            <if test="predictDay != null  and predictDay != ''"> and predict_day like concat('%', #{predictDay}, '%')</if>
+            <if test="predictValue != null  and predictValue != ''"> and predict_value = #{predictValue}</if>
+            <if test="predictId != null  and predictId != ''"> and predict_id = #{predictId}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysPredictDetailByDetailId" parameterType="Long" resultMap="SysPredictDetailResult">
+        <include refid="selectSysPredictDetailVo"/>
+        where detail_id = #{detailId}
+    </select>
+        
+    <insert id="insertSysPredictDetail" parameterType="SysPredictDetail">
+        insert into sys_predict_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="detailId != null">detail_id,</if>
+            <if test="predictId != null">predict_id,</if>
+            <if test="predictDay != null">predict_day,</if>
+            <if test="predictValue != null">predict_value,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="detailId != null">#{detailId},</if>
+            <if test="predictId != null">#{predictId},</if>
+            <if test="predictDay != null">#{predictDay},</if>
+            <if test="predictValue != null">#{predictValue},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysPredictDetail" parameterType="SysPredictDetail">
+        update sys_predict_detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="predictId != null">predict_id = #{predictId},</if>
+            <if test="predictDay != null">predict_day = #{predictDay},</if>
+            <if test="predictValue != null">predict_value = #{predictValue},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where detail_id = #{detailId}
+    </update>
+
+    <delete id="deleteSysPredictDetailByDetailId" parameterType="Long">
+        delete from sys_predict_detail where detail_id = #{detailId}
+    </delete>
+
+    <delete id="deleteSysPredictDetailByDetailIds" parameterType="String">
+        delete from sys_predict_detail where detail_id in 
+        <foreach item="detailId" collection="array" open="(" separator="," close=")">
+            #{detailId}
+        </foreach>
+    </delete>
+
+</mapper>

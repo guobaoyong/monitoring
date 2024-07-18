@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.monitoring.system.mapper.SysSensorsMapper">
+    
+    <resultMap type="SysSensors" id="SysSensorsResult">
+        <result property="sensorsId"    column="sensors_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="type"    column="type"    />
+        <result property="status"    column="status"    />
+        <result property="address"    column="address"    />
+        <result property="mac"    column="mac"    />
+        <result property="ip"    column="ip"    />
+        <result property="earlyWarning"    column="early_warning"    />
+    </resultMap>
+
+    <sql id="selectSysSensorsVo">
+        select sensors_id, create_by, create_time, update_by, update_time, remark, type, status, address, mac, ip, early_warning from sys_sensors
+    </sql>
+
+    <select id="selectSysSensorsList" parameterType="SysSensors" resultMap="SysSensorsResult">
+        <include refid="selectSysSensorsVo"/>
+        <where>  
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysSensorsBySensorsId" parameterType="Long" resultMap="SysSensorsResult">
+        <include refid="selectSysSensorsVo"/>
+        where sensors_id = #{sensorsId}
+    </select>
+        
+    <insert id="insertSysSensors" parameterType="SysSensors" useGeneratedKeys="true" keyProperty="sensorsId">
+        insert into sys_sensors
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="type != null">type,</if>
+            <if test="status != null">status,</if>
+            <if test="address != null">address,</if>
+            <if test="mac != null">mac,</if>
+            <if test="ip != null">ip,</if>
+            <if test="earlyWarning != null">early_warning,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="type != null">#{type},</if>
+            <if test="status != null">#{status},</if>
+            <if test="address != null">#{address},</if>
+            <if test="mac != null">#{mac},</if>
+            <if test="ip != null">#{ip},</if>
+            <if test="earlyWarning != null">#{earlyWarning},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysSensors" parameterType="SysSensors">
+        update sys_sensors
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="mac != null">mac = #{mac},</if>
+            <if test="ip != null">ip = #{ip},</if>
+            <if test="earlyWarning != null">early_warning = #{earlyWarning},</if>
+        </trim>
+        where sensors_id = #{sensorsId}
+    </update>
+
+    <delete id="deleteSysSensorsBySensorsId" parameterType="Long">
+        delete from sys_sensors where sensors_id = #{sensorsId}
+    </delete>
+
+    <delete id="deleteSysSensorsBySensorsIds" parameterType="String">
+        delete from sys_sensors where sensors_id in 
+        <foreach item="sensorsId" collection="array" open="(" separator="," close=")">
+            #{sensorsId}
+        </foreach>
+    </delete>
+
+    <select id="selectCount" resultType="Integer">
+        select count(1) from sys_sensors
+    </select>
+
+</mapper>

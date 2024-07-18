@@ -1,0 +1,54 @@
+﻿{
+  "data": [
+    {
+      "id": "1",
+      "carno": "豫A67335",
+      "company": "DSJ01分厂",
+      "content": "运输传感器等电子类产品",
+      "speed": "82",
+      "load": "3187KG",
+      "driver": "学齐心",
+      "phone": "18160750199"
+    },
+    {
+      "id": "2",
+      "carno": "豫C89706",
+      "company": "DSJ02分厂",
+      "content": "运输传感器等电子类产品",
+      "speed": "101",
+      "load": "4200KG",
+      "driver": "纪怡",
+      "phone": "15550078369"
+    },
+    {
+      "id": "3",
+      "carno": "豫A46483",
+      "company": "DSJ03分厂",
+      "content": "运输传感器等电子类产品",
+      "speed": "80",
+      "load": "6547KG",
+      "driver": "文菊",
+      "phone": "15642731288"
+    },
+    {
+      "id": "4",
+      "carno": "豫A79192",
+      "company": "DSJ04分厂",
+      "content": "运输传感器等电子类产品",
+      "speed": "68",
+      "load": "1569KG",
+      "driver": "乐夏山",
+      "phone": "19383011281"
+    },
+   {
+      "id": "5",
+      "carno": "豫A88159",
+      "company": "DSJ05分厂",
+      "content": "运输传感器等电子类产品",
+      "speed": "34",
+      "load": "6246KG",
+       "driver": "东方玉",
+       "phone": "17815153586"
+    }
+  ]
+}

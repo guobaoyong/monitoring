@@ -1,0 +1,1271 @@
+﻿<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/datascreen/BigData.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/datascreen/index.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/datascreen/index01.css}" rel="stylesheet" type="text/css" />
+
+    <script th:src="@{/js/datascreen/jquery.js}"></script>
+
+    <link th:href="@{/js/datascreen/bstable/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/js/datascreen/bstable/css/bootstrap-table.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/datascreen/Security_operation.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/js/datascreen/artDialog/skins/default.css}" rel="stylesheet" type="text/css" />
+
+    <script th:src="@{/js/datascreen/laydate.js}"></script>
+    <script th:src="@{/js/datascreen/Home_page.js}"></script>
+
+    <meta charset="UTF-8">
+    <title>数字孪生工厂数据大屏</title>
+
+</head>
+<body >
+<div class="data_bodey">
+    <div class="index_nav" >
+        <ul style="height: 30px; margin-bottom: 0px;">
+            <li class="l_left total_chose_fr nav_active">实时监测</li>
+        </ul>
+        <div class="total_chose_box" style="display: none;">
+            <div style="height: 32px;"></div>
+            <span class="chose_tltle">请选择年份：</span>
+            <select class="year_chose">
+                <option>2025</option>
+                <option>2024</option>
+                <option>2023</option>
+                <option>2022</option>
+                <option>2021</option>
+                <option>2020</option>
+            </select>
+            <span class="chose_tltle">请输入月份：</span>
+            <input class="chose_text_in">
+            <span class="chose_tltle">请选择区域：</span>
+            <select class="year_chose">
+                <option>北京市</option>
+                <option>天津市</option>
+                <option>河北省</option>
+                <option>山西省</option>
+                <option>内蒙古自治区</option>
+                <option>辽宁省</option>
+                <option>吉林省</option>
+                <option>黑龙江省</option>
+                <option>上海市</option>
+                <option>江苏省</option>
+                <option>浙江省</option>
+                <option>安徽省</option>
+                <option>福建省</option>
+                <option>江西省</option>
+                <option>山东省</option>
+                <option>河南省</option>
+                <option>湖北省</option>
+                <option>湖南省</option>
+                <option>广东省</option>
+                <option>广西壮族自治区</option>
+                <option>海南省</option>
+                <option>重庆市</option>
+                <option>四川省</option>
+                <option>贵州省</option>
+                <option>西藏自治区</option>
+                <option>陕西省</option>
+                <option>甘肃省</option>
+                <option>青海省</option>
+                <option>宁夏回族自治区</option>
+                <option>新疆维吾尔自治区</option>
+                <option>香港特别行政区</option>
+                <option>澳门特别行政区</option>
+                <option>台湾省</option>
+            </select>
+            <button class="chose_enter">确定</button>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="index_tabs" >
+        <div class="inner" style="height: 109%;">
+
+            <div class="left_cage">
+                <div class="dataAllBorder01 cage_cl" style="margin-top: 9% !important; height: 24%;">
+                    <video autoplay="autoplay" loop="loop" muted class="dataAllBorder02 video_cage">
+                        <source class="video" title="宣传视频" th:src="@{/video/test.mp4}" type="video/mp4"/>
+                    </video>
+                </div>
+                <div class="dataAllBorder01 cage_cl" style="margin-top: 1.5% !important; height: 38%;">
+                    <div class="dataAllBorder02 video_cage">
+                        <!--在线实时监控-->
+                        <video id="video" class="dataAllBorder02 video_cage"></video>
+                    </div>
+                </div>
+                <div class="dataAllBorder01 cage_cl" style="margin-top: 1.5% !important; height: 32%; position: relative;">
+                    <div class="dataAllBorder02" style="padding: 1.2%; overflow: hidden">
+
+                        <div class="message_scroll_box">
+                            <div class="message_scroll" th:each="notice:${todayNotice}">
+                            <div class="scroll_top">
+                                <span class="scroll_title" th:text="${notice.noticeTitle}"></span>
+                                <span class="scroll_level scroll_level01" th:switch="${notice.getStatus()}">
+                                    <span th:case="1">异常</span>
+                                    <span th:case="0">正常</span>
+                                </span>
+                                <a class="localize"></a>
+                                <span class="scroll_timer" th:text="${notice.getWarningDate()}"></span>
+                            </div>
+                            <div class="msg_cage">
+                                <a class="localize_title" th:text="${notice.getNoticeContent()}" th:onclick="'javascript:contentClick('+${notice.noticeId}+')'"></a>
+                            </div>
+                            <div class="msg_cage">
+                                <a class="localize_msg" th:text="${notice.getRemark()}" th:onclick="'javascript:contentClick('+${notice.noticeId}+')'"></a>
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
+                    <div class="scroll_tool_outbox">
+                        <div class="scroll_tool_box">
+                            <a class="scroll_tool" href="#">查看历史推送</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center_cage">
+                <div class="dataAllBorder01 cage_cl" style="margin-top: 3.5% !important; height: 62.7%; position: relative;">
+                    <div class="dataAllBorder02" style="position: relative; overflow: hidden;">
+                        <!--标题栏-->
+                        <div class="map_title_box" style="height: 6%">
+                            <div class="map_title_innerbox">
+                                <div class="map_title">郑州科技学院-实时地图</div>
+                            </div>
+                        </div>
+                        <div class="map" id="map"  ></div>
+                        <!--地图显示信息选择-->
+                        <div class="display_type_box display_box" style="display: none;overflow:auto">
+                            <div class="display_type_center_box">
+                                <ul class="display_type_inner_box" id="layerList">
+                                    <li class="display_type_msg"><input id="zt_4" type="checkbox" class="display_type_chose"/> 危化品企业</li>
+                                    <li class="display_type_msg"><input  id="zt_1" type="checkbox" class="display_type_chose"/>仓库</li>
+                                    <li class="display_type_msg"><input  id="zt_5" type="checkbox" class="display_type_chose"/>学校</li>
+                                    <li class="display_type_msg"><input  id="zt_6" type="checkbox" class="display_type_chose"/>医疗卫生</li>
+                                    <li class="display_type_msg"><input  id="zt_2" type="checkbox" class="display_type_chose"/>加油站</li>
+                                    <li class="display_type_msg"><input  id="zt_0" type="checkbox" class="display_type_chose"/>停车场</li>
+                                    <li class="display_type_msg"><input  id="zt_3" type="checkbox" class="display_type_chose"/>派出所</li>
+                                    <li class="display_type_msg"><input  id="zt_7" type="checkbox" class="display_type_chose"/>应急避难场所</li>
+                                    <li class="display_type_msg">----------------------------------</li>
+                                    <li class="display_type_msg"><input id="zt_14" type="checkbox" class="display_type_chose" />危化品运输车辆</li>
+                                    <li class="display_type_msg"><input id="zt_11" type="checkbox" class="display_type_chose" />监控设备</li>
+                                    <li class="display_type_msg"><input id="zt_13" type="checkbox" class="display_type_chose" />巡逻警员</li>
+                                    <li class="display_type_msg"><input id="zt_12" type="checkbox" class="display_type_chose" />巡逻警车</li>
+                                </ul>
+                            </div>
+                            <div class="display_type_funct_box">
+                                <span class="display_type_funct display_type_funct_sure">确定</span>
+                            </div>
+                        </div>
+                        <!--城市选择-->
+                        <div class="city_chose_box display_box" style="display: none">
+                            <div class="display_type_center_box">
+                                <ul class="display_type_inner_box" id="ulCity">
+                                    <li class="display_type_msg">北京市</li>
+                                    <li class="display_type_msg">天津市</li>
+                                    <li class="display_type_msg">河北省</li>
+                                    <li class="display_type_msg">山西省</li>
+                                    <li class="display_type_msg">内蒙古自治区</li>
+                                    <li class="display_type_msg">辽宁省</li>
+                                    <li class="display_type_msg">吉林省</li>
+                                    <li class="display_type_msg">黑龙江省</li>
+                                    <li class="display_type_msg">上海市</li>
+                                    <li class="display_type_msg">江苏省</li>
+                                    <li class="display_type_msg">浙江省</li>
+                                    <li class="display_type_msg">安徽省</li>
+                                    <li class="display_type_msg">福建省</li>
+                                    <li class="display_type_msg">江西省</li>
+                                    <li class="display_type_msg">山东省</li>
+                                    <li class="display_type_msg">河南省</li>
+                                    <li class="display_type_msg">湖北省</li>
+                                    <li class="display_type_msg">湖南省</li>
+                                    <li class="display_type_msg">广东省</li>
+                                    <li class="display_type_msg">广西壮族自治区</li>
+                                    <li class="display_type_msg">海南省</li>
+                                    <li class="display_type_msg">重庆市</li>
+                                    <li class="display_type_msg">四川省</li>
+                                    <li class="display_type_msg">贵州省</li>
+                                    <li class="display_type_msg">西藏自治区</li>
+                                    <li class="display_type_msg">陕西省</li>
+                                    <li class="display_type_msg">甘肃省</li>
+                                    <li class="display_type_msg">青海省</li>
+                                    <li class="display_type_msg">宁夏回族自治区</li>
+                                    <li class="display_type_msg">新疆维吾尔自治区</li>
+                                    <li class="display_type_msg">香港特别行政区</li>
+                                    <li class="display_type_msg">澳门特别行政区</li>
+                                    <li class="display_type_msg">台湾省</li>
+                                </ul>
+                            </div>
+                            <div class="display_type_funct_box">
+                                <span class="display_type_funct display_type_funct_sure">确定</span>
+                            </div>
+                        </div>
+                        <!--轨迹回放-->
+                        <div class="trajectory_box" style="display: none" id="divRouteReview">
+                            <input class="trajectory" id="start" placeholder="开始时间">
+                            <input class="trajectory" id="end"  placeholder="结束时间">
+                            <select class="ratio">
+                                <option>1倍</option>
+                                <option>2倍</option>
+                                <option>3倍</option>
+                            </select>
+                            <button class="playback" onclick="showRoute()">回放</button>
+                            <button class="playback close_playback">关闭</button>
+                        </div>
+                        <!--缓冲区设置-->
+                        <div class="trajectory_box" style="display: none" id="divBufferSetting">
+                            <button class="playback" style="width:60px" onclick="setBufferCenter()">设置点</button>
+                            <input class="trajectory" id="txtBufferX" placeholder="坐标X">
+                            <input class="trajectory" id="txtBufferY" placeholder="坐标Y">
+                            <input value="10" class="trajectory" id="txtBufferDis" placeholder="缓冲距离">
+                            <select class="ratio">
+                                <option>米</option>
+                                <option>千米</option>
+                            </select>
+                            <button class="playback"  onclick="executeBuffer();edit()" style="width:60px">分析</button>
+                            <button class="playback close_playback">关闭</button>
+                        </div>
+
+                        <!--地图工具栏-->
+                        <div class="map_tool_outbox">
+                            <span class="map_tool" onclick="zoomFull()">
+                                    <a class="map_tool_inner" title="全图" ></a>
+                            </span>
+                            <span class="map_tool" onclick="zoomOut()">
+                                    <a class="map_tool_inner" title="放大" style="background-position-x:-36px"></a>
+                                </span>
+                            <span class="map_tool" onclick="zoomIn()">
+                                    <a class="map_tool_inner" title="缩小" style="background-position-x:-72px"></a>
+                                </span>
+                            <span class="map_tool" onclick="showHeatMap()">
+                                    <a class="map_tool_inner" title="倒退视图" style="background-position-x:-108px"></a>
+                                </span>
+                            <span class="map_tool">
+                                    <a class="map_tool_inner" title="前进视图" style="background-position-x:-144px"></a>
+                                </span>
+                            <span class="map_tool">
+                                    <a class="map_tool_inner display_type_btn" title="专题地图" style="background-position-x:-180px"></a>
+                                </span>
+                            <span class="map_tool">
+                                    <a class="map_tool_inner city_chose_btn" title="城市定位" style="background-position-x:-432px"></a>
+                                </span>
+                            <span class="map_tool" id="btnBuffer">
+                                    <a class="map_tool_inner" title="缓冲区分析" style="background-position-x:-216px"></a>
+                                </span>
+                            <span class="map_tool">
+                                    <a class="map_tool_inner addition_check_btn check_btn" title="地址检索" style="background-position-x:-252px"></a>
+                                </span>
+                            <span class="map_tool">
+                                    <a class="map_tool_inner chemistry_check_btn check_btn" onclick="chemistryCheck()" title="危化品检索" style="background-position-x:-288px"></a>
+                                </span>
+                            <span class="map_tool">
+                                    <a class="map_tool_inner enterprise_check_btn check_btn" onclick="enterpriseCheck()"  title="企业检索" style="background-position-x:-324px"></a>
+                                </span>
+                            <span class="map_tool">
+                                    <a class="map_tool_inner car_check_btn check_btn" onclick="carCheck()" title="车辆检索"  style="background-position-x:-360px"></a>
+                                </span>
+                            <span class="map_tool">
+                                    <a class="map_tool_inner" onclick="Search()" title="搜索" style="background-position-x:-468px"></a>
+                                </span>
+                            <span class="map_tool">
+                                    <a class="map_tool_inner" onclick="cancel()" id="fresh_tool" title="清空" style="background-position-x:-396px"></a>
+                                </span>
+                            <span class="map_tool">
+                               <input type="text" id="txtCoord" style="width:150px;visibility:hidden" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dataAllBorder01 cage_cl" style="margin-top: 0.6% !important; height: 32.1%;">
+                    <div class="dataAllBorder02" id="map_title_innerbox">
+                        <div class="map_title_box">
+                            <div class="map_title_innerbox">
+                                <div class="map_title" style="background-image: url(../../static/img/img/second_title.png);">分析数据</div>
+                            </div>
+                            <div >
+                                <select id="selLayer" style="width:100px;">
+                                    <option value="">车辆</option>
+                                    <option value="">企业</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table id="table" style="width: 100%"></table>
+                    </div>
+
+                    <div class="dataAllBorder02" id="map_title_innerbox1" style="display: none; position: relative;">
+                        <div class="map_title_box">
+                            <div class="map_title_innerbox">
+                                <div class="map_title" style="background-image: url(../../static/img/img/second_title.png);">常见威胁源辐射范围表</div>
+                            </div>
+                        </div>
+                        <ul class="tab_msg_box">
+                           <li class="tab_msg tab_msg01 tab_msg_current">材料</li>
+                            <li class="tab_msg tab_msg02">工厂</li>
+                        </ul>
+                        <div class="table1">
+                        <table id="table1" style="width: 100%"></table>
+                        </div>
+                        <div class="table2" style=" display: none;">
+                        <table id="table2" style="width: 100%;"></table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="right_cage">
+                <!--顶部切换位置-->
+                <div class="dataAllBorder01 cage_cl" style="margin-top: 9% !important; height: 24%">
+                    <div class="dataAllBorder02" id="cage_cl" >
+                        <div class="analysis">已采集数据：</div>
+                        <ul  class="data_show_box">
+                            <li class="data_cage" th:each="number:${collectDataCount}" th:text="${number}"></li>
+                        </ul>
+                        <div class="depart_number_box">
+                            <ul class="depart_number_cage">
+                                <li class="depart_name">温度传感器：</li>
+                                <li class="depart_number" th:text="${temperatureCount}"></li>
+                            </ul>
+                            <ul class="depart_number_cage">
+                                <li class="depart_name">湿度传感器：</li>
+                                <li class="depart_number" th:text="${humidityCount}"></li>
+                            </ul>
+                            <ul class="depart_number_cage" style="margin-bottom: 0px;">
+                                <li class="depart_name">光照传感器：</li>
+                                <li class="depart_number" th:text="${lightCount}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dataAllBorder02 over_hide" id="cage_cl1" style="display: none" >
+                        <div class="analysis">事件基础信息：</div>
+                        <ul class="location_msg_box">
+                            <li class="location_msg01 location_single">状态：<a href="#" style="color: #dc0000;"><span id="cage_cl1_status"></span></a></li>
+                            <li class="location_msg02 location_single">类型：<span id="cage_cl1_type"></span></li>
+                            <li class="location_msg02 location_double">发生时间：<a href="#" style="color: #cdd6db;"><span id="cage_cl1_time"></span></a></li>
+                            <li class="location_msg01 location_double">地址：<span id="cage_cl1_address"></span></li>
+                            <li class="location_msg01 location_single" style="width: 100%; height: 40%">详细内容：<span id="cage_cl1_content"></span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="dataAllBorder01 cage_cl check_increase" style=" margin-top: 1.5% !important;">
+                    <!--切换01-->
+                    <div class="dataAllBorder02 over_hide dataAllBorder20" id="over_hide">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>传感器名称</th>
+                                <th>状态</th>
+                                <th>类型</th>
+                                <th>部署位置</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="sensor:${sensorsList}">
+                                <td th:text="${sensor.getRemark()}"></td>
+                                <td th:switch="${sensor.getStatus()}">
+                                    <span th:case="0">在线</span>
+                                    <span th:case="1">离线</span>
+                                </td>
+                                <td th:switch="${sensor.getType()}">
+                                    <span th:case="temperature">温度</span>
+                                    <span th:case="humidity">湿度</span>
+                                    <span th:case="light">光照</span>
+                                </td>
+                                <td th:text="${sensor.getAddress()}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--切换02-->
+                    <div class="dataAllBorder02 over_hide dataAllBorder20" id="over_hide1"  style="display: none">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>行为</th>
+                                <th>危险等级</th>
+                                <th>扩散速度</th>
+                                <th>影响范围</th>
+                                <th>操作人</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>非法侵入系统</td>
+                                <td>5级</td>
+                                <td>高速</td>
+                                <td>全球</td>
+                                <td>童安双</td>
+                            </tr>
+                            <tr>
+                                <td>泄露敏感数据</td>
+                                <td>4级</td>
+                                <td>中速</td>
+                                <td>全国</td>
+                                <td>仝巧春</td>
+                            </tr>
+                            <tr>
+                                <td>恶意软件攻击</td>
+                                <td>3级</td>
+                                <td>慢速</td>
+                                <td>局部</td>
+                                <td>贾驰月</td>
+                            </tr>
+                            <tr>
+                                <td>非法篡改数据</td>
+                                <td>5级</td>
+                                <td>高速</td>
+                                <td>特定行业</td>
+                                <td>城湘灵</td>
+                            </tr>
+                            <tr>
+                                <td>钓鱼邮件攻击</td>
+                                <td>2级</td>
+                                <td>低速</td>
+                                <td>少量用户</td>
+                                <td>笃向彤</td>
+                            </tr>
+                            <tr>
+                                <td>勒索软件感染</td>
+                                <td>4级</td>
+                                <td>中速</td>
+                                <td>大型企业</td>
+                                <td>党才艺</td>
+                            </tr>
+                            <tr>
+                                <td>物理设备破坏</td>
+                                <td>5级</td>
+                                <td>瞬时</td>
+                                <td>局部设施</td>
+                                <td>零翠曼</td>
+                            </tr>
+                            <tr>
+                                <td>拒绝服务攻击</td>
+                                <td>3级</td>
+                                <td>中速</td>
+                                <td>在线服务</td>
+                                <td>马松月</td>
+                            </tr>
+                            <tr>
+                                <td>社交工程诈骗</td>
+                                <td>1级</td>
+                                <td>低速</td>
+                                <td>个人用户</td>
+                                <td>奚南霜</td>
+                            </tr>
+                            <tr>
+                                <td>跨站脚本攻击</td>
+                                <td>3级</td>
+                                <td>慢速</td>
+                                <td>网站用户</td>
+                                <td>尾丽芳</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--地址检索切换03-->
+                    <div class="dataAllBorder02 addition_check_in" style="display: none;position: relative" >
+                        <div class="analysis" style="height: 34px;%">地址检索：</div>
+                        <div class="search_plate_box">
+                            <ul class="search_separate">
+                                <li class="search_title">地址类型：</li>
+                                <select class="search_input_box search_chose_box">
+                                    <option>全部</option>
+                                    <option>居民区</option>
+                                    <option>街道</option>
+                                    <option>建筑物</option>
+                                    <option>园区</option>
+                                </select>
+                            </ul>
+                            <ul class="search_separate">
+                                <li class="search_title">地址名称：</li>
+                                <li class="search_input_box"><input class="search_input" type="text"></li>
+                            </ul>
+                            <button class="search_btn">开始检索</button>
+                        </div>
+                        <!--检索结果板块-->
+                        <div class="search_sesult_box">
+                            <ul  class="search_result">
+                                <li class="search_result_add">郑州科技学院 联系方式：0371-56150666</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" title="操作"></li>
+                                <li class="search_result_road">河南省>郑州市>二七区马寨镇学院路1号</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">河南科技学院 联系方式：0373-3040127</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" title="操作"></li>
+                                <li class="search_result_road">河南省>新乡市>红旗区华兰大道东段</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">西北师范大学 联系方式：0931-7971114</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" title="操作"></li>
+                                <li class="search_result_road">甘肃省>兰州市>安宁区安宁西路967号</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">天安门广场 联系方式：010-63095745</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" title="操作"></li>
+                                <li class="search_result_road">北京市>东城区>东长安街</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">东方明珠 联系方式：021-58792888</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" title="操作"></li>
+                                <li class="search_result_road">上海市>浦东新区>世纪大道1号</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">台北101大楼 联系方式：+886-2-81018800</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" title="操作"></li>
+                                <li class="search_result_road">台湾省>台北市>信义区信义路五段7号</li>
+                            </ul>
+                        </div>
+                        <!--翻页模块-->
+                        <div class="tcdPageCode"></div>
+                    </div>
+                    <!--危化品检索切换04-->
+                    <div class="dataAllBorder02 chemistry_check_in" id="chemistry_check_in" style="display: none;position: relative" >
+                        <div class="analysis" style="height: 34px;">检索：</div>
+                        <div class="search_plate_box">
+                            <ul class="search_separate">
+                                <li class="search_title">危险物类型：</li>
+                                <select class="search_input_box search_chose_box">
+                                    <option>全部</option>
+                                    <option>理化危险</option>
+                                    <option>健康危险</option>
+                                    <option>环境危险</option>
+                                </select>
+                            </ul>
+                            <ul class="search_separate">
+                                <li class="search_title">输入名称：</li>
+                                <li class="search_input_box"><input class="search_input" type="text"></li>
+                            </ul>
+                            <button class="search_btn">开始检索</button>
+                        </div>
+                        <!--检索结果板块-->
+                        <div class="search_sesult_box">
+                            <ul  class="search_result">
+                                <li class="search_result_add danger_result">易燃气体</li>
+                                <li class="danger_level level03">一级</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" title="生命周期" onclick="showLife()"></li>
+                                <li class="search_result_car car_personal">理化危险</li>
+                                <li class="search_result_car car_time">DSJ01分厂</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add danger_result">易燃固体</li>
+                                <li class="danger_level level03">二级</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" title="生命周期"></li>
+                                <li class="search_result_car car_personal">理化危险</li>
+                                <li class="search_result_car car_time">DSJ02分厂</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add danger_result">急性毒性</li>
+                                <li class="danger_level level02">一级</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" title="生命周期"></li>
+                                <li class="search_result_car car_personal">健康危险</li>
+                                <li class="search_result_car car_time">DSJ03分厂</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add danger_result">皮肤腐蚀/刺激</li>
+                                <li class="danger_level level02">二级</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" title="生命周期"></li>
+                                <li class="search_result_car car_personal">健康危险</li>
+                                <li class="search_result_car car_time">DSJ04分厂</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add danger_result">危害水生环境</li>
+                                <li class="danger_level level03">三级</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" title="生命周期"></li>
+                                <li class="search_result_car car_personal">环境危险</li>
+                                <li class="search_result_car car_time">DSJ05分厂</li>
+                            </ul>
+                        </div>
+                        <!--翻页模块-->
+                        <div class="chemistry_tcdPageCode"></div>
+                    </div>
+                    <!--企业检索切换05-->
+                    <div class="dataAllBorder02 enterprise_check_in" id="enterprise_check_in" style="display: none;position: relative" >
+                        <div class="analysis" style="height: 34px;">企业检索：</div>
+                        <div class="search_plate_box">
+                            <ul class="search_separate">
+                                <li class="search_title">行业选择：</li>
+                                <select class="search_input_box search_chose_box">
+                                    <option>物流企业</option>
+                                    <option>食品生产制造</option>
+                                    <option>服务行业</option>
+                                    <option>工业生产</option>
+                                    <option>电子产品制造</option>
+                                    <option>科技服务</option>
+                                </select>
+                            </ul>
+                            <ul class="search_separate">
+                                <li class="search_title">企业名字：</li>
+                                <li class="search_input_box"><input class="search_input" type="text"></li>
+                            </ul>
+                            <ul class="search_separate">
+                                <li class="search_title">登记号：</li>
+                                <li class="search_input_box"><input class="search_input" type="text"></li>
+                            </ul>
+                            <button class="search_btn">开始检索</button>
+                        </div>
+                        <!--检索结果板块-->
+                        <div class="search_sesult_box">
+                            <ul  class="search_result">
+                                <li class="search_result_add">比亚迪（91440300192317458F）</li>
+                                <li class="search_location" title="定位"></li>3
+                                <li class="search_eddit" onclick="people()" title="操作"></li>
+                                <li class="search_result_road">深圳市>大鹏新区>葵涌街道延安路一号</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">一汽大众（91220000605120697F）</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" onclick="people()" title="操作"></li>
+                                <li class="search_result_road">吉林省>长春市>东风大街</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">奥迪（911101056869035025）</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" onclick="people()" title="操作"></li>
+                                <li class="search_result_road">北京市>朝阳区>霄云路34号院1号楼3-6层</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">华晨宝马（91210100746494975X）</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" onclick="people()" title="操作"></li>
+                                <li class="search_result_road">辽宁省>沈阳市>沈阳经济技术开发区宝马大道1号</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">百度集团（72712146）</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" onclick="people()" title="操作"></li>
+                                <li class="search_result_road">北京市>海淀区>上地十街10号</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">小米集团（69365572）</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_eddit" onclick="people()" title="操作"></li>
+                                <li class="search_result_road">北京市>海淀区>安宁庄路小米科技园</li>
+                            </ul>
+                        </div>
+                        <!--翻页模块-->
+                        <div class="enterprise_tcdPageCode"></div>
+                    </div>
+                    <!--车辆检索切换06-->
+                    <div class="dataAllBorder02" id="car_check_in" style="display: none;position: relative" >
+                        <div class="analysis" style="height: 34px;">车辆检索：</div>
+                        <div class="search_plate_box">
+                            <ul class="search_separate">
+                                <li class="search_title">车牌号码：</li>
+                                <li class="search_input_box"><input class="search_input" type="text"></li>
+                            </ul>
+                            <ul class="search_separate">
+                                <li class="search_title">车主姓名：</li>
+                                <li class="search_input_box"><input class="search_input" type="text"></li>
+                            </ul>
+                            <button class="search_btn">检索</button>
+                        </div>
+                        <!--检索结果板块-->
+                        <div class="search_sesult_box">
+                            <ul  class="search_result">
+                                <li class="search_result_add">豫A·K5H12（陈浩）</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_guiji"  title="轨迹回放"></li>
+                                <li class="search_result_car car_personal">福特（福克斯两厢）</li>
+                                <li class="search_result_car car_time">乘用车（5座)</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">豫A·14AG2（张正涛）</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_guiji" title="轨迹回放"></li>
+                                <li class="search_result_car car_personal">福特（金牛座）</li>
+                                <li class="search_result_car car_time">乘用车（5座)</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">豫B·2563K（李雪）</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_guiji" title="轨迹回放"></li>
+                                <li class="search_result_car car_personal">上海大众（迈腾）</li>
+                                <li class="search_result_car car_time">乘用车（5座)</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">豫A·SH273（刘红）</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_guiji" title="轨迹回放"></li>
+                                <li class="search_result_car car_personal">菲亚特（菲翔）</li>
+                                <li class="search_result_car car_time">乘用车（5座)</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">豫A·K5H12（陈浩）</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_guiji" title="轨迹回放"></li>
+                                <li class="search_result_car car_personal">奔驰（C200）</li>
+                                <li class="search_result_car car_time">乘用车（5座)</li>
+                            </ul>
+                            <ul  class="search_result">
+                                <li class="search_result_add">豫A·K5H12（张起国）</li>
+                                <li class="search_location" title="定位"></li>
+                                <li class="search_guiji" title="轨迹回放"></li>
+                                <li class="search_result_car car_personal">东风商用车（天龙）</li>
+                                <li class="search_result_car car_time">载货卡车（100t)</li>
+                            </ul>
+                        </div>
+                        <!--翻页模块-->
+                        <div class="car_tcdPageCode"></div>
+                    </div>
+                </div>
+
+                <div class="dataAllBorder01 cage_cl check_decrease" style="margin-top: 1.5% !important; height: 32%; position: relative;">
+                    <div class="dataAllBorder02 over_hide" style="padding: 1.2%;">
+                        <div class="analysis">数字孪生工厂数据构成因素占比：</div>
+                        <div class="danger_contain_box">
+                            <div id="container_huan" style="height: 90%;width: 100%"></div>
+                        </div>
+                        <div class="danger_depart_box">
+
+                            <ul class="danger_depart">
+                                <li class="danger_ico" style="background-image: url(../../static/img/img/images/pic_ico_01.png); background-position-x: 0px"></li>
+                                <li class="data_name">传感器数量</li>
+                                <li class="data data01" th:text="${sensorsCount}"></li>
+                                <li class="data data02">↑&nbsp&nbsp1.2%</li>
+                            </ul>
+                            <ul class="danger_depart">
+                                <li class="danger_ico" style="background-image: url(../../static/img/img/images/pic_ico_02.png); background-position-x: 0px"></li>
+                                <li class="data_name">覆盖优化记录</li>
+                                <li class="data data01" th:text="${coCount}"></li>
+                                <li class="data data02" style="color: #ff2865;">↓&nbsp&nbsp0.3%</li>
+                            </ul>
+                            <ul class="danger_depart danger_depart01">
+                                <li class="danger_ico" style="background-image: url(../../static/img/img/images/pic_ico_03.png); background-position-x: 0px"></li>
+                                <li class="data_name">今日已采集数据</li>
+                                <li class="data data01" th:text="${todayCollectCount}"></li>
+                                <li class="data data02">↑&nbsp&nbsp1%</li>
+                            </ul>
+                            <ul class="danger_depart danger_depart01">
+                                <li class="danger_ico" style="background-image: url(../../static/img/img/images/pic_ico_01.png); background-position-x: 0px"></li>
+                                <li class="data_name">预测记录</li>
+                                <li class="data data01" th:text="${predictCount}"></li>
+                                <li class="data data02">↑&nbsp&nbsp0.3%</li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/datascreen/echarts-all.js}"></script>
+<script th:src="@{/js/datascreen/index.js}"></script>
+<script th:src="@{/js/datascreen/bstable/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/datascreen/bstable/js/bootstrap-table.js}"></script>
+<script th:src="@{/js/datascreen/jquery.pagination.js}"></script>
+<script th:src="@{/js/datascreen/bstable/js/bootstrap-table-zh-CN.min.js}"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5ieMMexWmzB9jivTq6oCRX9j&callback"></script>
+<script th:src="@{/js/datascreen/Home_page.js}"></script>
+<script th:src="@{/js/datascreen/artDialog/artDialog.js}"></script>
+<script th:src="@{/js/datascreen/artDialog/plugins/iframeTools.source.js}"></script>
+
+<script th:inline="javascript">
+    var number;
+    $(function() {
+        if (window.screen.height <= 768) {
+            number = 4;
+        } else if (window.screen.height > 768 && window.screen.height <= 900) {
+            number = 6
+        } else if (window.screen.height > 1080) {
+            number = 8
+        }
+    });
+
+
+//    翻页模块
+    $(".tcdPageCode").createPage({
+        pageCount:5,
+        current:1,
+        backFn:function(p){}
+    });
+    $(".chemistry_tcdPageCode").createPage({
+    pageCount:4,
+    current:1,
+    backFn:function(p){}
+});
+    $(".enterprise_tcdPageCode").createPage({
+    pageCount:4,
+    current:1,
+    backFn:function(p){}
+});
+    $(".car_tcdPageCode").createPage({
+    pageCount:4,
+    current:1,
+    backFn:function(p){}
+});
+
+    $(function () {
+        $(".tit02Diva a").each(function (index) {
+            $(this).on("click",function () {
+                $(".data_map").eq(index).fadeIn().siblings(".data_map").stop().hide();
+                $(this).prev('i').removeClass('i_crlieAction');
+                $(this).siblings('a').prev('i').addClass('i_crlieAction');
+
+            })
+        });
+        BootstrapTable();
+        Echarts();
+        $("#fresh_tool").click(function(event){
+            event.stopPropagation();
+            cancel();
+        })
+
+    });
+    function contentClick(id) {
+        $("#cage_cl1").show();
+        $.get("/system/dataScreen/notice?id="+id, function(result) {
+            $("#cage_cl1_status").text(result.data.status == 0 ? '正常' : '异常');
+            $("#cage_cl1_type").text(result.data.noticeTitle);
+            $("#cage_cl1_time").text(result.data.warningDate);
+            $("#cage_cl1_address").text(result.data.remark);
+            $("#cage_cl1_content").text(result.data.noticeContent);
+
+        });
+    }
+
+    function EventClick() {
+        $(".check_increase").removeClass("check_increase_act");
+        $("#over_hide1").show().siblings().hide();
+        $(".check_decrease").show();
+        $("#cage_cl").hide();
+        $("#map_title_innerbox").hide();
+        $("#cage_cl1").show();
+//        $("#over_hide").show();
+        $("#map_title_innerbox1").show();
+        $(".addition_check_in").hide();
+        $("#car_check_in").hide();
+        BootstrapTable();
+    }
+
+    function cancel(e) {
+        $(".check_increase").removeClass("check_increase_act");
+        $("#over_hide").show().siblings().hide();
+        $(".check_decrease").show();
+        $("#cage_cl").show();
+        $("#cage_cl1").hide();
+//        $("#cage_cl").show();
+//        $("#over_hide1").show();
+//        $("#map_title_innerbox").show();
+        BootstrapTable();
+    }
+
+    //    地址检索
+    $(".addition_check_btn").click(function () {
+        $(".check_increase").addClass("check_increase_act");
+        $(".check_decrease").hide()
+        $(".addition_check_in").show().siblings().hide()
+    });
+
+//    危化品检索
+    function chemistryCheck() {
+        $(".check_increase").addClass("check_increase_act");
+        $(".check_decrease").hide()
+        $("#chemistry_check_in").show().siblings().hide()
+    }
+
+    //    企业检索
+    function enterpriseCheck() {
+        $(".check_increase").addClass("check_increase_act");
+        $(".check_decrease").hide()
+        $("#enterprise_check_in").show().siblings().hide()
+    }
+
+    //    车辆检索
+    function carCheck() {
+        $(".check_increase").addClass("check_increase_act");
+        $(".check_decrease").hide()
+        $("#car_check_in").show().siblings().hide()
+    }
+
+    function BootstrapTable() {
+        $('#table').bootstrapTable({
+            method: "get",
+            striped: true,
+            singleSelect: false,
+            url: "/json/DGCar.json",
+            dataType: "json",
+            pagination: true, //分页
+            pageSize: number,
+            pageNumber: 1,
+            search: false, //显示搜索框
+            contentType: "application/x-www-form-urlencoded",
+            queryParams: null,
+            columns: [
+                {
+                    title: '车牌号',
+                    field: 'carno',
+                    width:80,
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '所属企业',
+                    field: 'company',
+                    align: 'center',
+                    valign: 'middle'
+                },
+
+                {
+                    title: '运输内容',
+                    field: 'content',
+                    align: 'center'
+                },
+
+                {
+                    title: '行驶速度',
+                    field: 'speed',
+                    width:80,
+                    align: 'center'
+                },
+                {
+                    title: '车辆载重',
+                    field: 'load',
+                    width:80,
+                    align: 'center'
+                },
+                {
+                    title: '司机',
+                    field: 'driver',
+                    align: 'center'
+                },
+                {
+                    title: '联系方式',
+                    field: 'phone',
+                    align: 'center'
+                },
+                {
+                    title: '操作',
+                    field: 'load',
+                    align: 'center',
+                    formatter: function (value, row) {
+                        var e = '<a  href="javascript:void(0)" title="" onclick="showCarDetai()">查看详情</a> ';
+                        var d = '<a  href="javascript:void(0)" title="" onclick="analiysis(\'' + row.id + '\')">车辆定位</a> ';
+                        return e + d;
+                    }
+                }
+
+            ]
+        });
+        $('#table1').bootstrapTable({
+            method: "get",
+            striped: true,
+            singleSelect: false,
+            url: "/json/note1.json",
+            dataType: "json",
+            pagination: true, //分页
+            pageSize: number,
+            pageNumber: 1,
+            search: false, //显示搜索框
+            contentType: "application/x-www-form-urlencoded",
+            queryParams: null,
+            columns: [
+                {
+                    title: "威胁源",
+                    field: 'id',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '辐射距离',
+                    field: 'title',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '威胁范围',
+                    field: 'type',
+                    align: 'center',
+                    valign: 'middle'
+                },
+
+                {
+                    title: '危害类型',
+                    field: 'person',
+                    align: 'center'
+                }
+
+            ]
+        });
+        $('#table2').bootstrapTable({
+            method: "get",
+            striped: true,
+            singleSelect: false,
+            url: "/json/note2.json",
+            dataType: "json",
+            pagination: true, //分页
+            pageSize: number,
+            pageNumber: 1,
+            search: false, //显示搜索框
+            contentType: "application/x-www-form-urlencoded",
+            queryParams: null,
+            columns: [
+                {
+                    title: "威胁源",
+                    field: 'id',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '辐射距离',
+                    field: 'title',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '威胁范围',
+                    field: 'type',
+                    align: 'center',
+                    valign: 'middle'
+                },
+
+                {
+                    title: '危害类型',
+                    field: 'person',
+                    align: 'center'
+                }
+
+            ]
+        });
+    }
+
+    var todayCollectCount = [[${todayCollectCount}]];
+    var sensorsCount = [[${sensorsCount}]];
+    var predictCount = [[${predictCount}]];
+    var todayNoticeCount = [[${todayNoticeCount}]];
+    var runTime = [[${runTime}]];
+
+    function Echarts() {
+        var myChart = echarts.init($("#container_huan")[0]);
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data:['今日已采集','传感器','预测记录','预警记录','运行时间'],
+                textStyle:{
+                    color:"#e9ebee"
+                }
+            },
+            series: [
+                {
+                    name:'数据构成',
+                    type:'pie',
+                    center:['80%','50%'],
+                    radius: ['50%', '80%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: false
+                            },
+                            labelLine: {
+                                show: false
+                            }
+                        }
+                    },
+                    data:[
+                        {value:todayCollectCount, name:'今日已采集'},
+                        {value:sensorsCount, name:'传感器'},
+                        {value:predictCount, name:'预测记录'},
+                        {value:todayNoticeCount, name:'预警记录'},
+                        {value:runTime, name:'运行时间'}
+                    ]
+                }
+            ]
+        };
+        myChart.setOption(option);
+    }
+
+
+    function TimeControl(){
+        $(".message_scroll_box").animate({marginTop:96},800,
+                function(){
+                    $(".message_scroll_box").css({marginTop:0});    //把顶部的边界清零
+                    $(".message_scroll_box .message_scroll:first").before($(".message_scroll_box .message_scroll:last"));    //在第一个新闻后面插入最后一个新闻
+
+                });
+    }
+    var T=setInterval(TimeControl,2300);    //开始定时
+    $(".message_scroll_box").mouseenter(function(){
+        clearInterval(T);    //停止定时
+    })
+            .mouseleave(function(){
+                T=setInterval(TimeControl,2500);    //再次定时
+            })
+
+</script>
+
+<!--轨迹回放时间日期选择-->
+<script th:inline="javascript">
+    !function(){
+        laydate.skin('danlan');//切换皮肤，请查看skins下面皮肤库
+        laydate({elem: '#demo'});
+        laydate({elem: '#demo1'});//绑定元素
+    }();
+    //日期范围限制
+    var start = {
+        elem: '#start',
+        format: 'YYYY-MM-DD',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+
+    var end = {
+        elem: '#end',
+        format: 'YYYY-MM-DD',
+        min: laydate.now(),
+        max: '2099-06-16',
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+            start.max = datas; //结束日选好后，充值开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+    function edit() {
+        layer.open({
+            type: 2,
+            title: '存储详情',
+            shade: 0.5,
+            skin: 'layui-layer-rim',
+            area: ['700px', '400px'],
+            shadeClose: true,
+            closeBtn: 1,
+            content: 'saveFindTail.html'
+        });
+    }
+</script>
+<script th:inline="javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("map");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(113.509411, 34.708042), 16);  // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes:[
+            BMAP_NORMAL_MAP,
+            BMAP_HYBRID_MAP
+        ]}));
+    var mapStyle={
+        style:"dark"
+    };
+    map.setMapStyle(mapStyle);
+    map.setCurrentCity("郑州");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);
+</script>
+<script th:inline="javascript">
+    const video = document.getElementById('video');
+
+    //访问摄像头
+    if (
+        navigator.mediaDevices.getUserMedia ||
+        navigator.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia
+    ) {
+        //调用用户媒体设备, 访问摄像头
+        getUserMedia({ video: {  } }, success, error);
+    } else {
+        alert('不支持访问用户媒体');
+    }
+
+    //访问用户媒体设备的兼容方法
+    function getUserMedia(constraints, success, error) {
+        if (navigator.mediaDevices.getUserMedia) {
+            //最新的标准API
+            navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
+        } else if (navigator.webkitGetUserMedia) {
+            //webkit核心浏览器
+            navigator.webkitGetUserMedia(constraints, success, error);
+        } else if (navigator.mozGetUserMedia) {
+            //firfox浏览器
+            navigator.mozGetUserMedia(constraints, success, error);
+        } else if (navigator.getUserMedia) {
+            //旧版API
+            navigator.getUserMedia(constraints, success, error);
+        }
+    }
+
+    //成功回调
+    function success(stream) {
+        console.log('成功');
+        video.srcObject = stream;
+        video.play();
+    }
+
+    //失败回调
+    function error(error) {
+        console.log('失败');
+        console.log('访问用户媒体设备失败', error);
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

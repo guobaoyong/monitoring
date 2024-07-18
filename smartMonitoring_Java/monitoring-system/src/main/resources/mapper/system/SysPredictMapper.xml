@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.monitoring.system.mapper.SysPredictMapper">
+
+    <resultMap type="SysPredict" id="SysPredictResult">
+        <result property="predictId"    column="predict_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="predictCurve"    column="predict_curve"    />
+        <result property="predictDay"    column="predict_day"    />
+        <result property="sensorId"    column="sensor_id"    />
+        <result property="lossCurve"    column="loss_curve"    />
+        <result property="testCurve"    column="test_curve"    />
+        <result property="score"    column="score"    />
+        <result property="predictTest"    column="predict_test"    />
+    </resultMap>
+
+    <sql id="selectSysPredictVo">
+        select predict_id, create_by, create_time, update_by, update_time, remark, predict_curve, predict_day, sensor_id, loss_curve, test_curve, score, predict_test from sys_predict
+    </sql>
+
+    <select id="selectSysPredictList" parameterType="SysPredict" resultMap="SysPredictResult">
+        <include refid="selectSysPredictVo"/>
+        <where>
+            <if test="predictCurve != null  and predictCurve != ''"> and predict_curve = #{predictCurve}</if>
+            <if test="predictDay != null  and predictDay != ''"> and predict_day = #{predictDay}</if>
+            <if test="sensorId != null "> and sensor_id = #{sensorId}</if>
+            <if test="lossCurve != null  and lossCurve != ''"> and loss_curve = #{lossCurve}</if>
+            <if test="testCurve != null  and testCurve != ''"> and test_curve = #{testCurve}</if>
+            <if test="score != null  and score != ''"> and score = #{score}</if>
+            <if test="predictTest != null  and predictTest != ''"> and predict_test = #{predictTest}</if>
+        </where>
+    </select>
+
+    <select id="selectSysPredictByPredictId" parameterType="Long" resultMap="SysPredictResult">
+        <include refid="selectSysPredictVo"/>
+        where predict_id = #{predictId}
+    </select>
+
+    <insert id="insertSysPredict" parameterType="SysPredict" useGeneratedKeys="true" keyProperty="predictId">
+        insert into sys_predict
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="predictCurve != null">predict_curve,</if>
+            <if test="predictDay != null">predict_day,</if>
+            <if test="sensorId != null">sensor_id,</if>
+            <if test="lossCurve != null">loss_curve,</if>
+            <if test="testCurve != null">test_curve,</if>
+            <if test="score != null">score,</if>
+            <if test="predictTest != null">predict_test,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="predictCurve != null">#{predictCurve},</if>
+            <if test="predictDay != null">#{predictDay},</if>
+            <if test="sensorId != null">#{sensorId},</if>
+            <if test="lossCurve != null">#{lossCurve},</if>
+            <if test="testCurve != null">#{testCurve},</if>
+            <if test="score != null">#{score},</if>
+            <if test="predictTest != null">#{predictTest},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysPredict" parameterType="SysPredict">
+        update sys_predict
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="predictCurve != null">predict_curve = #{predictCurve},</if>
+            <if test="predictDay != null">predict_day = #{predictDay},</if>
+            <if test="sensorId != null">sensor_id = #{sensorId},</if>
+            <if test="lossCurve != null">loss_curve = #{lossCurve},</if>
+            <if test="testCurve != null">test_curve = #{testCurve},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="predictTest != null">predict_test = #{predictTest},</if>
+        </trim>
+        where predict_id = #{predictId}
+    </update>
+
+    <delete id="deleteSysPredictByPredictId" parameterType="Long">
+        delete from sys_predict where predict_id = #{predictId}
+    </delete>
+
+    <delete id="deleteSysPredictByPredictIds" parameterType="String">
+        delete from sys_predict where predict_id in
+        <foreach item="predictId" collection="array" open="(" separator="," close=")">
+            #{predictId}
+        </foreach>
+    </delete>
+
+    <select id="selectCount" resultType="Integer">
+        select count(1) from sys_predict
+    </select>
+
+</mapper>

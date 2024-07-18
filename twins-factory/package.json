@@ -1,0 +1,30 @@
+{
+  "name": "shoufeizhan3",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tweenjs/tween.js": "^18.6.4",
+    "cors": "^2.8.5",
+    "echarts": "^5.2.0",
+    "echarts-liquidfill": "^3.1.0",
+    "element-plus": "^2.2.17",
+    "jquery": "^3.7.1",
+    "require": "^2.4.20",
+    "three": "^0.146.0",
+    "vue": "^3.2.37",
+    "vue-router": "^4.0.13",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.0",
+    "unplugin-auto-import": "^0.11.2",
+    "unplugin-vue-components": "^0.22.8",
+    "vite": "^3.1.0"
+  }
+}

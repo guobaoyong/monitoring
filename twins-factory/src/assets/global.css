@@ -1,0 +1,76 @@
+.el-progress-bar__outer {
+    /* background-color: rgba(0,0,0,0.2) !important;
+    border:solid 1px transparent !important;
+   background-image: url(./开关/开槽.png);
+   background-repeat: no-repeat;
+   background-size:100% 100%;
+   border-radius: 0px; */
+
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    width: 400px;
+
+}
+
+.el-progress-bar__outer .el-progress-bar__inner {
+    background-color: rgba(0,255,255,1.0);
+    /* background-image: linear-gradient(to right, #3e2fff, #00ffff); */
+
+}
+
+.el-progress .el-progress__text span{
+    /* color:#00ffff; */
+    color:#ffffff;
+}
+
+
+.el-switch .el-switch__core {
+    /* background-color: rgba(0,0,0,0.0); */
+    margin-left: 10px;
+    background-color: rgba(0, 0, 0, 0.0) !important;
+    border: solid 1px transparent !important;
+    background-image: url(./开关/关槽.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 40px;
+    height: 20px;
+    margin-top: -4px;
+}
+
+.is-checked .el-switch__core {
+    background-color: rgba(0, 0, 0, 0.0) !important;
+    border: solid 1px transparent !important;
+    background-image: url(./开关/开槽.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 40px;
+    height: 20px;
+}
+
+.el-switch.is-checked .el-switch__core .el-switch__action {
+    /* background-color: rgba(0,0,0,0.0) !important; */
+    background-image: url(./开关/开圆.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    /* width:12px !important;
+   height:12px !important; */
+}
+
+.el-switch.is-checked .el-switch__core .el-switch__action {
+    background-image: url(./开关/开圆.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 12px !important;
+    height: 12px !important;
+    margin-top: 2px;
+
+}
+
+.el-switch__core .el-switch__action {
+    background-image: url(./开关/关圆.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 12px !important;
+    height: 12px !important;
+    margin-top: 2px;
+    margin-left: 4px;
+}

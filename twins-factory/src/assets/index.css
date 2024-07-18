@@ -1,0 +1,11 @@
+@font-face {
+    font-family: number;
+    /* src: url(./dafont网站下载/digital-7.ttf); */
+    src: url(./DS-DIGIT.TTF);
+  }
+  
+  .DS-DIGIT {
+    font-family: 'number';
+    font-size: 100px;
+    color: #ffeb7b;
+  }

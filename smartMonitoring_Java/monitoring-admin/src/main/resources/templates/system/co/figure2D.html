@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('覆盖优化图表(二维)')"/>
+    <th:block th:include="include :: echarts-js"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>初始部署节点位置分布图</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" id="echarts-scatter-chart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>优化部署节点位置分布图</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" id="echarts-scatter2-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>网络覆盖率变化图</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" id="echarts-line-chart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>网络能量变化图</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" id="echarts-line2-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input th:value="${sysCo.dataId}" type="hidden" id="dataId">
+    <input th:value="${sysCo.coId}" type="hidden" id="coId">
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: echarts-js"/>
+<script type="text/javascript">
+    var prefix = ctx + "system/co";
+    var dataId = $("#dataId").val();
+    var coId = $("#coId").val();
+
+    $(function () {
+        // 初始位置分布
+        var scatterChart = echarts.init(document.getElementById("echarts-scatter-chart"));
+        var initLocationData = [];
+        $.ajax({
+            url: prefix + "/initLocationData",
+            type: 'post',
+            dataType: "json",
+            data: {
+                dataId: dataId
+            },
+            async: false,
+            success: function (result) {
+                $.each(result.data, function (n, value) {
+                    initLocationData.push(value);
+                });
+            }
+        });
+        var scatteroption = {
+            xAxis: {},
+            yAxis: {},
+            axisTick: {
+                show: true,
+                alignWithLabel: true
+            },
+            series: [
+                {
+                    symbolSize: 50,
+                    data: initLocationData,
+                    type: 'scatter'
+                }
+            ]
+        };
+        scatterChart.setOption(scatteroption);
+        $(window).resize(scatterChart.resize);
+
+        // 优化位置分布
+        var scatterChart2 = echarts.init(document.getElementById("echarts-scatter2-chart"));
+        var afterLocationData = [];
+        $.ajax({
+            url: prefix + "/afterLocationData",
+            type: 'post',
+            dataType: "json",
+            data: {
+                dataId: dataId
+            },
+            async: false,
+            success: function (result) {
+                $.each(result.data, function (n, value) {
+                    afterLocationData.push(value);
+                });
+            }
+        });
+        var scatter2option = {
+            xAxis: {},
+            yAxis: {},
+            axisTick: {
+                show: true,
+                alignWithLabel: true
+            },
+            series: [
+                {
+                    symbolSize: 50,
+                    data: afterLocationData,
+                    type: 'scatter'
+                }
+            ]
+        };
+        scatterChart2.setOption(scatter2option);
+        $(window).resize(scatterChart2.resize);
+
+        // 覆盖率变化图
+        var lineChart = echarts.init(document.getElementById("echarts-line-chart"));
+        var coverageData = [];
+        $.ajax({
+            url: prefix + "/coverageData",
+            type: 'post',
+            dataType: "json",
+            data: {
+                coId: coId
+            },
+            async: false,
+            success: function (result) {
+                $.each(result.data, function (n, value) {
+                    coverageData.push(value);
+                });
+            }
+        });
+        var lineoption = {
+            xAxis: {},
+            yAxis: {},
+            series: [
+                {
+                    data: coverageData,
+                    type: 'line'
+                }
+            ]
+        };
+        lineChart.setOption(lineoption);
+        $(window).resize(lineChart.resize);
+
+        //能量变化图
+        var lineChart2 = echarts.init(document.getElementById("echarts-line2-chart"));
+        var energyData = [];
+        $.ajax({
+            url: prefix + "/energyData",
+            type: 'post',
+            dataType: "json",
+            data: {
+                coId: coId
+            },
+            async: false,
+            success: function (result) {
+                $.each(result.data, function (n, value) {
+                    energyData.push(value);
+                });
+            }
+        });
+        var line2option = {
+            xAxis: {},
+            yAxis: {},
+            series: [
+                {
+                    data: energyData,
+                    type: 'line'
+                }
+            ]
+        };
+        lineChart2.setOption(line2option);
+        $(window).resize(lineChart2.resize);
+    });
+</script>
+</body>
+</html>
